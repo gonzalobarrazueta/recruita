@@ -1,0 +1,11 @@
+<div class="form-element">
+  <input [type]="type" [placeholder]="placeholder" [formControl]="control" class="form-text-field">
+  @if (control.invalid && control.dirty) {
+    @if (control.errors?.['required']) {
+      <div class="validation-message">This field is required.</div>
+    }
+    @if (control.errors?.['email']) {
+      <div class="validation-message">Please enter a valid email.</div>
+    }
+  }
+</div>
