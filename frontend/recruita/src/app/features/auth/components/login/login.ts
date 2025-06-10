@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { CtaButton } from '../../../../shared/components/cta-button/cta-button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [
     CtaButton,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss'

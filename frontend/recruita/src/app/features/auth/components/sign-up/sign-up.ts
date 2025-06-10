@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CtaButton } from '../../../../shared/components/cta-button/cta-button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   imports: [
     CtaButton,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss'
