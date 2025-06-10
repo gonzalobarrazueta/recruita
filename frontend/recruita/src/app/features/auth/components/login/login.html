@@ -1,0 +1,43 @@
+<div class="content">
+  <div class="col">
+    <h1 class="title">Recruita</h1>
+    <p class="desc">¡Encuentra el trabajo ideal que mejor se adapta a ti!</p>
+  </div>
+  <div class="col">
+    <form class="login-form" [formGroup]="loginForm">
+      <div class="form-title">
+        <h2>¡Bienvenido!</h2>
+      </div>
+
+      <div class="form-elements">
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="email"
+            placeholder="Email"
+            name="email"
+          >
+        </div>
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="password"
+            placeholder="Contraseña"
+            name="password"
+          >
+        </div>
+      </div>
+
+      <app-cta-button
+        [text]="'Iniciar sesión'"
+        [type]="'submit'"
+        [isDisabled]="loginForm.invalid"
+        (clickEvent)="submitForm()"
+      ></app-cta-button>
+
+      <p class="go-to-signup" >¿No tienes una cuenta?<span><a href="">Crea una cuenta</a></span></p>
+    </form>
+  </div>
+</div>
