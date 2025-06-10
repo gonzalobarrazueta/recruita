@@ -15,10 +15,12 @@ button {
   padding: 14px 0;
 
   &:hover:not(:disabled) {
-    background-color: #98ffce;
+    background-color: #83ffc1;
+    cursor: pointer;
   }
 
   &:disabled {
-    background-color: #E0E0E0;
+    color: #bcbcbc;
+    cursor: not-allowed;
   }
 }
