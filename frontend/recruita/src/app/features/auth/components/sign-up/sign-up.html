@@ -1,0 +1,83 @@
+<div class="content">
+  <div class="content-col">
+    <h1 class="title">Recruita</h1>
+    <p class="desc">¡Encuentra el trabajo ideal que mejor se adapta a ti!</p>
+  </div>
+  <div class="content-col">
+    <form class="signup-form" [formGroup]="signUpForm">
+      <div class="form-title">
+        <h2>Crea una cuenta</h2>
+      </div>
+
+      <div class="form-elements">
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="name"
+            placeholder="Nombre"
+            name="name"
+          >
+        </div>
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="lastName"
+            placeholder="Apellido"
+            name="lastName"
+          >
+        </div>
+        <div class="form-element">
+          <select
+            formControlName="userRole"
+          >
+            <option value="" disabled selected>¿Quién eres?</option>
+            @for (role of userRoles; track role) {
+              <option [value]="role.value">{{ role.text }}</option>
+            }
+          </select>
+          <div class="validation-message">{{ getControlError('userRole') }}</div>
+        </div>
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="email"
+            placeholder="Email"
+            name="email"
+          >
+          <div class="validation-message">{{ getControlError('email') }}</div>
+        </div>
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="password"
+            placeholder="Contraseña"
+            name="password"
+          >
+          <div class="validation-message">{{ getControlError('password') }}</div>
+        </div>
+        <div class="form-element">
+          <input
+            class="text-field"
+            type="text"
+            formControlName="organization"
+            placeholder="Organización"
+            name="organization"
+          >
+        </div>
+      </div>
+
+      <app-cta-button
+        [text]="'Unirme ahora'"
+        [type]="'submit'"
+        [isDisabled]="signUpForm.invalid"
+        (clickEvent)="submitForm()"
+      ></app-cta-button>
+
+      <p class="go-to-login" >¿Ya tienes una cuenta?<span><a href="">Inicia sesión</a></span></p>
+    </form>
+  </div>
+</div>
