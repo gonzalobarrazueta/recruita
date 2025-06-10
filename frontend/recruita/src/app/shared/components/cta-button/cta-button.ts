@@ -9,7 +9,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class CtaButton {
   @Input() text: string = '';
   @Input() type: string = 'submit';
-  @Input() isDisabled: boolean = false;
+  @Input() isDisabled: boolean = true;
   @Output() clickEvent = new EventEmitter<void>();
 
   constructor() {
