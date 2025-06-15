@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Instrument Sans', serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  background-color: #B5FFDB;
+
+  border-radius: 8px;
+  border: none;
+
+  padding: 14px 0;
+
+  &:hover:not(:disabled) {
+    background-color: #83ffc1;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    color: #bcbcbc;
+    cursor: not-allowed;
+  }
+}

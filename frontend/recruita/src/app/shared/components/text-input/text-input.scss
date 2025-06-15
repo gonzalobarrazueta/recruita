@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Instrument Sans';
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-text-field {
+  width: 100%;
+  padding: 10px 16px;
+  margin: 5px 0;
+
+  border-radius: 8px;
+  border: none;
+}
+
+.validation-message {
+  color: #f34242;
+  padding: 0 0 0 16px;
+}
