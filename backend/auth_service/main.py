@@ -4,10 +4,19 @@ from .database import Base, engine
 from typing import Annotated
 from .routes.auth import get_current_user
 from starlette import status
-
+from fastapi.middleware.cors import CORSMiddleware
 from .routes import auth
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(auth.router)
 
 Base.metadata.create_all(bind=engine)
