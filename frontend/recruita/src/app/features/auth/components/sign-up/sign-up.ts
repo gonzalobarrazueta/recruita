@@ -59,9 +59,9 @@ export class SignUp {
         this.signUpForm.get('name')?.value,
         this.signUpForm.get('lastName')?.value,
         this.signUpForm.get('phoneNumber')?.value,
-        this.signUpForm.get('userRole')?.value,
         this.signUpForm.get('email')?.value,
         this.signUpForm.get('password')?.value,
+        this.signUpForm.get('userRole')?.value,
         this.signUpForm.get('organization')?.value
       );
     }
