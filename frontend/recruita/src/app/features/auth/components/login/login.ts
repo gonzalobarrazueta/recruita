@@ -39,7 +39,7 @@ export class Login {
             if (user.role == 'applicant') {
               this.router.navigate(['/jobs']);
             } else { // user is an applicant
-              this.router.navigate(['/sign-up']);
+              this.router.navigate(['/manage-jobs']);
             }
           }
         });
