@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CtaButton } from '../../../../shared/components/cta-button/cta-button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {Auth} from '../../services/auth';
 
 @Component({
@@ -22,7 +22,7 @@ export class SignUp {
     { value: 'recruiter', text: 'Reclutador' }
   ]
 
-  constructor(private formBuilder: FormBuilder, private authService: Auth) {
+  constructor(private formBuilder: FormBuilder, private authService: Auth, private router: Router) {
     this.signUpForm = this.formBuilder.group({
       name: [],
       lastName: [],
@@ -35,13 +35,25 @@ export class SignUp {
   }
 
   register(name: string, lastName: string, phoneNumber: string, email: string, password: string, role: string, organization: string) {
-    this.authService.register(
-      name, lastName, phoneNumber, email, password, role, organization
-    ).subscribe({
-        next: (data) => {
-          localStorage.setItem('access_token', data.access_token);
-        }
-      })
+    this.authService.register(name, lastName, phoneNumber, email, password, role, organization).subscribe({
+      next: (data) => {
+        localStorage.setItem('access_token', data.access_token);
+
+        // Check if the user is a recruiter or candidate
+        this.authService.getUser().subscribe( {
+          next: (data) => {
+            let user = data.user;
+            this.authService.setRole(user.role);
+
+            if (user.role == 'applicant') {
+              this.router.navigate(['/jobs']);
+            } else { // user is a recruiter
+              this.router.navigate(['/manage-jobs']);
+            }
+          }
+        });
+      }
+    });
   }
 
   getControlError(controlName: string): string | null {
