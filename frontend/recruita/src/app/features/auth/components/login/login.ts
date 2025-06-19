@@ -38,8 +38,8 @@ export class Login {
 
             if (user.role == 'applicant') {
               this.router.navigate(['/jobs']);
-            } else { // user is an applicant
-              this.router.navigate(['/sign-up']);
+            } else { // user is a recruiter
+              this.router.navigate(['/manage-jobs']);
             }
           }
         });

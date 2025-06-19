@@ -3,8 +3,13 @@
   <div class="navbar-content">
     <div class="logo">Recruita</div>
     <ul class="navbar-options">
-      <li><a routerLink="">Perfil</a></li>
-      <li><a routerLink="">Postulaciones</a></li>
+      @if (this.authService.getRole() == 'applicant') {
+        <li><a routerLink="">Perfil</a></li>
+        <li><a routerLink="">Postulaciones</a></li>
+      } @else if (this.authService.getRole() == 'recruiter') {
+        <li><a routerLink="">Perfil</a></li>
+        <li><a routerLink="">Trabajos publicados</a></li>
+      }
     </ul>
   </div>
 
