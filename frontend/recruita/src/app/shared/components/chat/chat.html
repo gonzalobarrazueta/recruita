@@ -1,0 +1,28 @@
+<div class="chat-container">
+  <div class="chat-box">
+    <div class="chat-header">
+      <h2>Job title</h2>
+    </div>
+
+    <div class="chat-messages">
+      @for (message of messages; track message) {
+        <div class="message">
+          <span class="message-text">{{ message.content }}</span>
+        </div>
+      }
+    </div>
+
+    <form class="chat-input">
+      <button class="icon-button " type="submit">
+        <span class="material-symbols-rounded">graphic_eq</span>
+      </button>
+      <button class="icon-button " type="submit">
+        <span class="material-symbols-rounded">attach_file_add</span>
+      </button>
+      <input class="user-message" type="text" placeholder="Escribe aquí..." required />
+      <button class="icon-button send-msg-button" type="submit">
+        <span class="material-symbols-rounded">send</span>
+      </button>
+    </form>
+  </div>
+</div>
