@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from .routes import documents
+from .database import Base, engine
+from .models.job_postings import JobPostings
 
 app = FastAPI()
 
@@ -14,3 +16,5 @@ app.add_middleware(
 )
 
 app.include_router(documents.router)
+
+Base.metadata.create_all(bind=engine)
