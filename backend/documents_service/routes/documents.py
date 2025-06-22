@@ -35,10 +35,16 @@ async def create_posting(db: db_dependency,
                          company_name: str = Form(...),
                          requirements: str = Form(...),
                          full_description: str = Form(...),
-                         company_image: UploadFile = File(...)
+                         company_image: UploadFile = File(None)
                          ):
 
-    blob_url = upload_blob(company_image)
+    try:
+        if company_image is not None:
+            blob_url = upload_blob(company_image)
+        else:
+            blob_url = ""
+    except:
+        pass
 
     new_job_posting = JobPostings(
         recruiter_id=recruiter_id,
