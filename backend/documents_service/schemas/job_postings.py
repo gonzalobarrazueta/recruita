@@ -13,5 +13,6 @@ class CreateJobPostingRequest(BaseModel):
     years_of_experience: int
     category: JobCategory
     company_name: str
+    company_image: str
     requirements: str
     full_description: str

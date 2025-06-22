@@ -18,5 +18,6 @@ class JobPostings(Base):
     years_of_experience = Column(Integer, nullable=False)
     category = Column(Enum(JobCategory), nullable=False)
     company_name = Column(String, nullable=False)
+    company_image = Column(String, nullable=True)
     requirements = Column(String, nullable=False)
     full_description = Column(Text, nullable=False)
