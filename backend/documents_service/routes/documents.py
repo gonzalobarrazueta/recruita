@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Form, File, UploadFile
 from typing import Annotated
 from sqlalchemy.orm import Session
 from starlette import status
+from uuid import UUID
 
 from ..database import SessionLocal
 from ..models.job_postings import JobPostings, JobCategory
-from ..schemas.job_postings import CreateJobPostingRequest
+from ..services.blob_storage import upload_blob
 
 router = APIRouter(
     prefix='/documents',
@@ -26,16 +27,28 @@ def get_documents():
     return {'message': 'documents endpoint'}
 
 @router.post('/create-job-posting', status_code=status.HTTP_201_CREATED)
-async def create_posting(db: db_dependency, job_posting: CreateJobPostingRequest):
+async def create_posting(db: db_dependency,
+                         recruiter_id: UUID = Form(...),
+                         title: str = Form(...),
+                         years_of_experience: int = Form(...),
+                         category: JobCategory = Form(...),
+                         company_name: str = Form(...),
+                         requirements: str = Form(...),
+                         full_description: str = Form(...),
+                         company_image: UploadFile = File(...)
+                         ):
+
+    blob_url = upload_blob(company_image)
 
     new_job_posting = JobPostings(
-        recruiter_id=job_posting.recruiter_id,
-        title=job_posting.title,
-        years_of_experience=job_posting.years_of_experience,
-        category=JobCategory(job_posting.category),
-        company_name=job_posting.company_name,
-        requirements=job_posting.requirements,
-        full_description=job_posting.full_description
+        recruiter_id=recruiter_id,
+        title=title,
+        years_of_experience=years_of_experience,
+        category=JobCategory(category),
+        company_name=company_name,
+        company_image=blob_url,
+        requirements=requirements,
+        full_description=full_description
     )
 
     db.add(new_job_posting)
