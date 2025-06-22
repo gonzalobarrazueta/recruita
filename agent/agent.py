@@ -6,12 +6,15 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
 from langchain_ollama import ChatOllama
 
-from tools import update_applicant_process, finish_applicant_process
+from tools.create_job_posting import create_job_posting
+
 
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
 
-tools = [update_applicant_process, finish_applicant_process]
+tools = [
+    create_job_posting
+    ]
 
 llm = ChatOllama(model='qwen3').bind_tools(tools)
 
