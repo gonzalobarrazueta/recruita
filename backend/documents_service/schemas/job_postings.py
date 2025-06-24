@@ -16,3 +16,17 @@ class CreateJobPostingRequest(BaseModel):
     company_image: str
     requirements: str
     full_description: str
+
+class JobPostingResponse(BaseModel):
+    id: UUID
+    recruiter_id: UUID
+    title: str
+    years_of_experience: int
+    category: JobCategory
+    company_name: str
+    company_image: str
+    requirements: str
+    full_description: str
+
+    class Config:
+        from_attributes = True
