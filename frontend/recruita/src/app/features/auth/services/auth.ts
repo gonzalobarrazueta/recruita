@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class Auth {
   private apiUrl = environment.AUTH_API_URL;
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
+  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -40,6 +43,10 @@ export class Auth {
     });
 
     return this.http.post(`${this.apiUrl}/auth/token`, body.toString(), { headers });
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUserSubject.next(user);
   }
 
   getUser(): Observable<any> {
