@@ -23,22 +23,18 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@router.get('/', status_code=status.HTTP_200_OK)
-def get_documents():
-    return {'message': 'documents endpoint'}
-
 @router.post('/create-job-posting', status_code=status.HTTP_201_CREATED)
-async def create_posting(db: db_dependency,
-                         recruiter_id: UUID = Form(...),
-                         title: str = Form(...),
-                         years_of_experience: int = Form(...),
-                         category: JobCategory = Form(...),
-                         company_name: str = Form(...),
-                         requirements: str = Form(...),
-                         full_description: str = Form(...),
-                         company_image: UploadFile = File(None)
-                         ):
-
+async def create_posting(
+        db: db_dependency,
+        recruiter_id: UUID = Form(...),
+        title: str = Form(...),
+        years_of_experience: int = Form(...),
+        category: JobCategory = Form(...),
+        company_name: str = Form(...),
+        requirements: str = Form(...),
+        full_description: str = Form(...),
+        company_image: UploadFile = File(None)
+):
     try:
         if company_image is not None:
             blob_url = upload_blob(company_image)
