@@ -60,7 +60,7 @@
     <div class="job-postings" #scrollableList>
 
       @for (posting of jobPostings; track posting.title) {
-        @if (posting.category == 'cloud') {
+        @if (posting.category == 'others') {
           <article class="job">
             <div class="company-img">
               <img src="{{ posting.companyImage }}" alt="Company Logo">
