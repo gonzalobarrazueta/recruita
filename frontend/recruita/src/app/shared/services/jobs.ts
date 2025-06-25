@@ -36,7 +36,24 @@ export class Jobs {
       );
   }
 
-  getJobsByRecruiterId(recruiterId: string) {
-
+  getJobsByRecruiterId(recruiterId: string): Observable<JobPosting[]> {
+    return this.http.get<any[]>(`${this.documentsApiURL}/documents/job-postings/recruiter/${recruiterId}`)
+      .pipe(
+        map(jobs =>
+          jobs.map(
+            job => ({
+              id: job.id,
+              recruiterId: job.recruiter_id,
+              title: job.title,
+              yearsOfExperience: job.years_of_experience,
+              category: job.category,
+              companyName: job.company_name,
+              companyImage: job.company_image,
+              requirements: job.requirements,
+              fullDescription: job.fullDescription
+            })
+          )
+        )
+      );
   }
 }
