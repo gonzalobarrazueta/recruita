@@ -13,7 +13,7 @@ class JobPostings(Base):
     __tablename__ = 'job_postings'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    recruiter_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    recruiter_id = Column(UUID(as_uuid=True), nullable=False)
     title = Column(String, nullable=False)
     years_of_experience = Column(Integer, nullable=False)
     category = Column(Enum(JobCategory), nullable=False)
