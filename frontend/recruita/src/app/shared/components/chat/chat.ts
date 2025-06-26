@@ -1,5 +1,5 @@
 import { Component, ElementRef, input, ViewChild } from '@angular/core';
-import { Message } from '../../../models/message';
+import { Message, Sender } from '../../../models/message';
 import { Agent } from '../../services/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JobPosting } from '../../../models/job-posting';
@@ -37,12 +37,28 @@ export class Chat {
   sendMessage() {
     let userInput: string = this.chatForm.get('userInput')?.value;
 
+    this.messages.push({
+      id: '',
+      userId: '',
+      content: userInput,
+      conversationId: '',
+      created_at: '',
+      sender: Sender.USER
+    });
+
     this.scrollToBottom();
 
     if (userInput) {
       this.agentService.sendMessage(userInput)
-        .subscribe(response => {
-          console.log(response);
+        .subscribe(data => {
+          this.messages.push({
+            id: '',
+            userId: '',
+            content: data.response,
+            conversationId: '',
+            created_at: '',
+            sender: Sender.AI
+          });
         })
     }
 
