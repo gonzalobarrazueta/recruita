@@ -1,7 +1,10 @@
 <div class="chat-container">
   <div class="chat-box">
     <div class="chat-header">
-      <h2>Job title</h2>
+      <div class="company-img-container">
+        <img class="company-img" [src]="jobPosting.companyImage" alt="{{ jobPosting.companyName }} logo">
+      </div>
+      <h2><span>{{ jobPosting.title }}</span> en <span>{{ jobPosting.companyName }}</span></h2>
     </div>
 
     <div class="chat-messages">

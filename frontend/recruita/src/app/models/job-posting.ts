@@ -1,8 +1,11 @@
 export interface JobPosting {
-  companyImg: string;
+  id:string;
+  recruiterId: string;
   title: string;
-  companyName: string;
-  experience: string;
-  requirements: string;
+  yearsOfExperience: number;
   category: string;
+  companyName: string;
+  companyImage: string;
+  requirements: string;
+  fullDescription: string;
 }

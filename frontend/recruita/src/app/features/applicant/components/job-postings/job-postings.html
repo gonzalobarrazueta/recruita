@@ -7,14 +7,14 @@
 
       @for (posting of jobPostings; track posting.title) {
         @if (posting.category == 'data') {
-          <article class="job">
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
-              <img src="{{ posting.companyImg }}" alt="Company Logo">
+              <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>
             <div class="job-details">
               <h3 class="job-title">{{ posting.title }}</h3>
               <p class="company-name">{{ posting.companyName }}</p>
-              <p class="experience">Experiencia: {{ posting.experience }}</p>
+              <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
               <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
             </div>
           </article>
@@ -34,14 +34,14 @@
 
       @for (posting of jobPostings; track posting.title) {
         @if (posting.category == 'cloud') {
-          <article class="job">
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
-              <img src="{{ posting.companyImg }}" alt="Company Logo">
+              <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>
             <div class="job-details">
               <h3 class="job-title">{{ posting.title }}</h3>
               <p class="company-name">{{ posting.companyName }}</p>
-              <p class="experience">Experiencia: {{ posting.experience }}</p>
+              <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
               <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
             </div>
           </article>
@@ -60,15 +60,15 @@
     <div class="job-postings" #scrollableList>
 
       @for (posting of jobPostings; track posting.title) {
-        @if (posting.category == 'cloud') {
-          <article class="job">
+        @if (posting.category == 'others') {
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
-              <img src="{{ posting.companyImg }}" alt="Company Logo">
+              <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>
             <div class="job-details">
               <h3 class="job-title">{{ posting.title }}</h3>
               <p class="company-name">{{ posting.companyName }}</p>
-              <p class="experience">Experiencia: {{ posting.experience }}</p>
+              <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
               <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
             </div>
           </article>

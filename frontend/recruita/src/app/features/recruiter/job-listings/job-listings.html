@@ -4,19 +4,17 @@
   <div class="job-postings-list">
     <div class="job-postings">
       @for (posting of jobPostings; track posting.title) {
-        @if (posting.category == 'data') {
-          <article class="job">
-            <div class="company-img">
-              <img src="{{ posting.companyImg }}" alt="Company Logo">
-            </div>
-            <div class="job-details">
-              <h3 class="job-title">{{ posting.title }}</h3>
-              <p class="company-name">{{ posting.companyName }}</p>
-              <p class="experience">Experiencia: {{ posting.experience }}</p>
-              <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
-            </div>
-          </article>
-        }
+        <article class="job">
+          <div class="company-img">
+            <img src="{{ posting.companyImage }}" alt="Company Logo">
+          </div>
+          <div class="job-details">
+            <h3 class="job-title">{{ posting.title }}</h3>
+            <p class="company-name">{{ posting.companyName }}</p>
+            <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
+            <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
+          </div>
+        </article>
       }
     </div>
   </div>
