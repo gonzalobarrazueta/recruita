@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, input, ViewChild } from '@angular/core';
 import { Message } from '../../../models/message';
 import { Agent } from '../../services/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,6 +19,7 @@ export class Chat {
   jobPosting: JobPosting = <JobPosting>{};
   chatForm!: FormGroup;
   messages: Message[] = [];
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
   constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs) {
     this.chatForm = this.formBuilder.group({
@@ -36,6 +37,8 @@ export class Chat {
   sendMessage() {
     let userInput: string = this.chatForm.get('userInput')?.value;
 
+    this.scrollToBottom();
+
     if (userInput) {
       this.agentService.sendMessage(userInput)
         .subscribe(response => {
@@ -52,5 +55,11 @@ export class Chat {
     if (input.files && input.files.length > 0) {
       console.log(input.files[0])
     }
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    });
   }
 }

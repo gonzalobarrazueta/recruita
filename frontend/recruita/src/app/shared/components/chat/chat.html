@@ -7,7 +7,7 @@
       <h2><span>{{ jobPosting.title }}</span> en <span>{{ jobPosting.companyName }}</span></h2>
     </div>
 
-    <div class="chat-messages">
+    <div class="chat-messages" #scrollContainer>
       @for (message of messages; track message) {
         @if (message.sender == "user") {
           <div class="message message-type-user">
