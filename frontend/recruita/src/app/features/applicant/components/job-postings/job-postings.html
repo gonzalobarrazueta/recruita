@@ -7,7 +7,7 @@
 
       @for (posting of jobPostings; track posting.title) {
         @if (posting.category == 'data') {
-          <article class="job">
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
               <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>
@@ -34,7 +34,7 @@
 
       @for (posting of jobPostings; track posting.title) {
         @if (posting.category == 'cloud') {
-          <article class="job">
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
               <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>
@@ -61,7 +61,7 @@
 
       @for (posting of jobPostings; track posting.title) {
         @if (posting.category == 'others') {
-          <article class="job">
+          <article class="job" [routerLink]="['/jobs', posting.id]">
             <div class="company-img">
               <img src="{{ posting.companyImage }}" alt="Company Logo">
             </div>

@@ -1,10 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { JobPosting } from '../../../../models/job-posting';
 import { Jobs } from '../../../../shared/services/jobs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-job-postings',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './job-postings.html',
   styleUrl: './job-postings.scss'
 })
