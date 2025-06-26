@@ -51,11 +51,22 @@
 
 .chat-messages {
   height: 100%;
-  padding: 10px 0;
+  padding: 0;
+  margin: 5px 0;
 
   display: flex;
-  flex-flow: column nowrap;
-  flex-direction: column-reverse;
+  flex-flow: column-reverse nowrap;
+  overflow-y: scroll;
+  gap: 5px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b8ba47;
+    border-radius: 10px;
+  }
 }
 
 .message {
