@@ -52,6 +52,10 @@
   gap: 16px 12px;
 
   flex: 0 0 auto;
+
+  :hover {
+    cursor: pointer;
+  }
 }
 
 .truncate {
