@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUp },
   { path: 'login', component: Login },
   { path: 'jobs', component: JobPostings },
+  { path: 'jobs/:id', component: Chat },
   { path: 'manage-jobs', component: JobListings },
   { path: 'chat', component: Chat }
 ];
