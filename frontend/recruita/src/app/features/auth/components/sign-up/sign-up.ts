@@ -37,13 +37,20 @@ export class SignUp {
   register(name: string, lastName: string, phoneNumber: string, email: string, password: string, role: string, organization: string) {
     this.authService.register(name, lastName, phoneNumber, email, password, role, organization).subscribe({
       next: (data) => {
-        localStorage.setItem('access_token', data.access_token);
+        const accessToken = data.access_token;
+        localStorage.setItem('access_token', accessToken);
 
         // Check if the user is a recruiter or candidate
         this.authService.getUser().subscribe( {
           next: (data) => {
             let user = data.user;
             this.authService.setRole(user.role);
+
+            this.authService.setCurrentUser({
+              id: user.id,
+              role: user.role,
+              token: accessToken
+            });
 
             if (user.role == 'applicant') {
               this.router.navigate(['/jobs']);
