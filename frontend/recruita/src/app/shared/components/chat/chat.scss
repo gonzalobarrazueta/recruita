@@ -73,6 +73,16 @@
   padding: 10px 20px;
   border-radius: 15px;
   background-color: #24302A;
+
+  max-width: 50%;
+}
+
+.message-type-user {
+  align-self: flex-end;
+}
+
+.message-type-ai {
+  align-self: flex-start;
 }
 
 .chat-input {

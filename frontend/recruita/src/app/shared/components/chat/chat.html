@@ -9,9 +9,15 @@
 
     <div class="chat-messages">
       @for (message of messages; track message) {
-        <div class="message">
-          <span class="message-text">{{ message.content }}</span>
-        </div>
+        @if (message.sender == "user") {
+          <div class="message message-type-user">
+            <span class="message-text">{{ message.content }}</span>
+          </div>
+        } @else { <!-- AI response -->
+          <div class="message message-type-ai">
+            <span class="message-text">{{ message.content }}</span>
+          </div>
+        }
       }
     </div>
 
