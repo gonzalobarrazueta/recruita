@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { JobPosting } from '../../../models/job-posting';
-import {Auth} from '../../auth/services/auth';
-import {Jobs} from '../../../shared/services/jobs';
+import { Auth } from '../../auth/services/auth';
+import { Jobs } from '../../../shared/services/jobs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-job-listings',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './job-listings.html',
   styleUrl: './job-listings.scss'
 })
