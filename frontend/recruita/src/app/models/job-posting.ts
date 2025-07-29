@@ -8,4 +8,5 @@ export interface JobPosting {
   companyImage: string;
   requirements: string;
   fullDescription: string;
+  hasNotifications?: number;
 }
