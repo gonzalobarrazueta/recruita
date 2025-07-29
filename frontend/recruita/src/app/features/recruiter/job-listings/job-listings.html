@@ -4,7 +4,12 @@
   <div class="job-postings-list">
     <div class="job-postings">
       @for (posting of jobPostings; track posting.title) {
-        <article class="job">
+        <article class="job" [routerLink]="'/results'">
+          @if (posting.hasNotifications) {
+            <div class="notification-badge">
+              {{ posting.hasNotifications }}
+            </div>
+          }
           <div class="company-img">
             <img src="{{ posting.companyImage }}" alt="Company Logo">
           </div>

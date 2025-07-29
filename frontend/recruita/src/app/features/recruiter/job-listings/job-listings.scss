@@ -19,6 +19,8 @@
 }
 
 .job {
+  position: relative;
+
   background-color: rgba(86, 91, 89, 0.5);
 
   border: 2px solid #BDECD3;
@@ -32,6 +34,10 @@
   gap: 16px 12px;
 
   flex: 0 0 auto;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .truncate {
@@ -41,6 +47,20 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #24e507;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
 }
 
 .company-img {
