@@ -20,6 +20,7 @@ export class Chat {
   chatForm!: FormGroup;
   messages: Message[] = [];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  waitingForAgentResponse: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs) {
     this.chatForm = this.formBuilder.group({
@@ -47,6 +48,7 @@ export class Chat {
     });
 
     this.scrollToBottom();
+    this.waitingForAgentResponse = true;
 
     if (userInput) {
       this.agentService.sendMessage(userInput)
@@ -59,6 +61,9 @@ export class Chat {
             created_at: '',
             sender: Sender.AI
           });
+
+          this.waitingForAgentResponse = false;
+
         })
     }
 

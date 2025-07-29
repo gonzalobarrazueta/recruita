@@ -19,6 +19,16 @@
           </div>
         }
       }
+
+      @if (waitingForAgentResponse) {
+        <div class="message message-type-ai">
+        <span class="message-text">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </span>
+        </div>
+      }
     </div>
 
     <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
