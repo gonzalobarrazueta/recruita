@@ -4,6 +4,8 @@ import { Login } from './features/auth/components/login/login';
 import { JobPostings } from './features/applicant/components/job-postings/job-postings';
 import { JobListings } from './features/recruiter/job-listings/job-listings';
 import { Chat } from './shared/components/chat/chat';
+import { Results } from './features/recruiter/results/results';
+import { CandidateProfile } from './features/recruiter/candidate-profile/candidate-profile';
 
 export const routes: Routes = [
   { path: '', component: SignUp },
@@ -12,5 +14,7 @@ export const routes: Routes = [
   { path: 'jobs', component: JobPostings },
   { path: 'jobs/:id', component: Chat },
   { path: 'manage-jobs', component: JobListings },
-  { path: 'chat', component: Chat }
+  { path: 'chat', component: Chat },
+  { path: 'results', component: Results },
+  { path: 'results/:id', component: CandidateProfile }
 ];
