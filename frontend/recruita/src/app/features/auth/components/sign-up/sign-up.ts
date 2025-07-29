@@ -18,7 +18,7 @@ export class SignUp {
 
   signUpForm!: FormGroup;
   userRoles = [
-    { value: 'candidate', text: 'Postulante' },
+    { value: 'applicant', text: 'Postulante' },
     { value: 'recruiter', text: 'Reclutador' }
   ]
 
