@@ -1,5 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {RouterLink} from '@angular/router';
+import { Applicant } from '../../../models/applicant';
 
 @Component({
   selector: 'app-results',
@@ -11,11 +12,9 @@ import {RouterLink} from '@angular/router';
 })
 export class Results {
 
-  top_candidates = [
-  ]
+  top_candidates: Applicant[] = []
 
-  additional_candidates = [
-  ]
+  additional_candidates: Applicant[] = []
 
   @ViewChild('scrollableList', { static: false }) scrollContainer!: ElementRef;
 
