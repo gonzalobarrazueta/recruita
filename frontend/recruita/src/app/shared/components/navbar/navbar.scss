@@ -47,5 +47,9 @@
   a {
     color: #FFFFFF;
     text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

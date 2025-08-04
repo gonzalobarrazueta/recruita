@@ -14,4 +14,8 @@ export class Navbar {
 
   constructor(protected authService: Auth) {
   }
+
+  logout() {
+    this.authService.logout();
+  }
 }
