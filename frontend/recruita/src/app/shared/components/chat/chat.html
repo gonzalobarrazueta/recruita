@@ -31,6 +31,13 @@
       }
     </div>
 
+    @if (selectedFile) {
+      <div class="file-preview">
+        <div class="file-selected">
+          <span class="file-name">{{ selectedFile.name }}</span>
+        </div>
+      </div>
+    }
     <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
       <button class="icon-button " type="button">
         <span class="material-symbols-rounded">graphic_eq</span>

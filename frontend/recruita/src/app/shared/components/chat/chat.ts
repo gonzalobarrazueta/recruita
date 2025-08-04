@@ -21,6 +21,7 @@ export class Chat {
   messages: Message[] = [];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   waitingForAgentResponse: boolean = false;
+  selectedFile: File | null = null;
 
   constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs) {
     this.chatForm = this.formBuilder.group({
@@ -37,6 +38,10 @@ export class Chat {
 
   sendMessage() {
     let userInput: string = this.chatForm.get('userInput')?.value;
+
+    if (this.selectedFile) {
+      this.selectedFile = null; // Reset the selected file after sending
+    }
 
     this.messages.push({
       id: '',
@@ -74,6 +79,7 @@ export class Chat {
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
       console.log(input.files[0])
     }
   }

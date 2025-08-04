@@ -85,6 +85,13 @@
   align-self: flex-start;
 }
 
+.file-preview {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: right;
+  padding-bottom: 5px;
+}
+
 .chat-input {
   background-color: #24302A;
   border-radius: 10px;
@@ -111,7 +118,7 @@
 
     display: flex;
 
-    & :hover {
+    &:hover {
       cursor: pointer;
     }
 
