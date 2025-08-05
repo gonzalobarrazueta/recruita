@@ -4,6 +4,8 @@ import { Agent } from '../../services/agent';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JobPosting } from '../../../models/job-posting';
 import { Jobs } from '../../services/jobs';
+import { CurriculumVitae } from '../../services/curriculum-vitae';
+import { Auth } from '../../../features/auth/services/auth';
 
 @Component({
   selector: 'app-chat',
@@ -23,7 +25,9 @@ export class Chat {
   waitingForAgentResponse: boolean = false;
   selectedFile: File | null = null;
 
-  constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs) {
+  constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs,
+              private authService: Auth,
+              private CVService: CurriculumVitae) {
     this.chatForm = this.formBuilder.group({
       userInput: ['', Validators.required]
     });
@@ -39,9 +43,18 @@ export class Chat {
   sendMessage() {
     let userInput: string = this.chatForm.get('userInput')?.value;
 
-    if (this.selectedFile) {
-      this.selectedFile = null; // Reset the selected file after sending
-    }
+    this.authService.currentUser$.subscribe(user => {
+      if (this.selectedFile && user) {
+        console.log(`User id: ${user.id}`);
+        this.CVService.uploadCV(this.selectedFile, user.id)
+          .subscribe({
+            next: (data) => console.log(data),
+            error: (e) => console.log(e)
+          });
+      }
+    });
+
+    this.selectedFile = null; // Reset the selected file after sending
 
     this.messages.push({
       id: '',
