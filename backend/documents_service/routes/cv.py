@@ -44,3 +44,18 @@ async def upload_cv(
     db.refresh(new_cv)
 
     return {'response': new_cv}
+
+@router.get(
+    path='/{applicant_id}/{job_posting_id}',
+    status_code=status.HTTP_200_OK
+)
+async def get_cv(applicant_id: str, job_posting_id: str, db: db_dependency):
+    result = db.query(CurriculumVitaes).filter(
+        CurriculumVitaes.applicant_id == applicant_id,
+        CurriculumVitaes.job_posting_id == job_posting_id
+    ).first()
+
+    if not result:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='CV not found')
+
+    return {'response': result}
