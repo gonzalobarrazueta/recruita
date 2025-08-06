@@ -6,7 +6,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
 from langchain_ollama import ChatOllama
 
-from tools.create_job_posting import create_job_posting
+from .tools.create_job_posting import create_job_posting
 
 
 class AgentState(TypedDict):
