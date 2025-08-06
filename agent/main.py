@@ -3,8 +3,11 @@ from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request
 from langchain_core.messages import ToolMessage, AIMessage, HumanMessage
 from starlette import status
+from .database import Base, engine
 
-from agent import graph
+from .agent import graph
+from .models.messages import Messages
+from .models.conversations import Conversations
 
 app = FastAPI()
 
@@ -15,6 +18,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+Base.metadata.create_all(bind=engine)
 
 @app.post('/ask')
 async def ask_agent(request: Request):
