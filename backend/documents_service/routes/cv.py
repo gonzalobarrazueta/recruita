@@ -28,12 +28,14 @@ db_dependency = Annotated[Session, Depends(get_db)]
 async def upload_cv(
         db: db_dependency,
         applicant_id=Form(...),
+        job_posting_id=Form(...),
         file: UploadFile = File(...)
 ):
     cv_content = await cv.extract_text_from_cv(file)
 
     new_cv = CurriculumVitaes(
         applicant_id=applicant_id,
+        job_posting_id=job_posting_id,
         content=cv_content
     )
 
