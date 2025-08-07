@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 from starlette import status
 from typing import Annotated
@@ -6,6 +6,7 @@ from typing import Annotated
 from ..database.database import get_db
 from ..models.conversations import Conversations
 from ..models.messages import Messages
+from ..services.conversations import get_or_create_conversation
 
 router = APIRouter(
     prefix='/conversations',
@@ -18,19 +19,9 @@ db_dependency = Annotated[Session, Depends(get_db)]
     path='/{applicant_id}/{job_posting_id}',
     status_code=status.HTTP_200_OK
 )
-async def get_or_create_conversation(applicant_id: str, job_posting_id: str, db: db_dependency):
-    conversation = db.query(Conversations).filter_by(
-        user_id=applicant_id,
-        job_posting_id=job_posting_id
-    ).first()
+async def get_conversation(applicant_id: str, job_posting_id: str, db: db_dependency):
 
-    if conversation:
-        messages = db.query(Messages).filter_by(conversation_id=conversation.id).order_by(Messages.created_at).all()
-    else:
-        conversation = Conversations(user_id=applicant_id, job_posting_id=job_posting_id)
-        db.add(conversation)
-        db.commit()
-        db.refresh(conversation)
-        messages = []
+    conversation = get_or_create_conversation(db, applicant_id, job_posting_id)
 
-    return {"conversation": conversation, "messages": messages}
+    return {"conversation": conversation}
+
