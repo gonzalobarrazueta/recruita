@@ -76,16 +76,15 @@ export class Chat {
   sendMessage() {
     let userInput: string = this.chatForm.get('userInput')?.value;
 
-    this.authService.currentUser$.subscribe(user => {
-      if (this.selectedFile && user) {
-        console.log(`User id: ${user.id}`);
-        this.CVService.uploadCV(this.selectedFile, user.id)
-          .subscribe({
+    if (this.selectedFile) {
+      this.CVService.uploadCV(this.selectedFile, this.currentUser.id)
+        .subscribe(
+          {
             next: (data) => console.log(data),
-            error: (e) => console.log(e)
-          });
-      }
-    });
+            error: (e) => console.error('Error uploading file:', e)
+          }
+        );
+    }
 
     this.selectedFile = null; // Reset the selected file after sending
 
