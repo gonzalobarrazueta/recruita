@@ -12,7 +12,7 @@ export class Agent {
 
   constructor(private http: HttpClient) { }
 
-  sendMessage(userInput: string): Observable<{ response: string }> {
+  askAgent(userInput: string): Observable<{ response: string }> {
     return this.http.post<{ response: string }>(this.agentApiURL, { "user_input": userInput });
   }
 }
