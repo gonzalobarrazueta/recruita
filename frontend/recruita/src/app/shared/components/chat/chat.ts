@@ -1,11 +1,11 @@
-import { Component, ElementRef, input, ViewChild } from '@angular/core';
-import { Message, Sender } from '../../../models/message';
-import { Agent } from '../../services/agent';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { JobPosting } from '../../../models/job-posting';
-import { Jobs } from '../../services/jobs';
-import { CurriculumVitae } from '../../services/curriculum-vitae';
-import { Auth } from '../../../features/auth/services/auth';
+import {Component, ElementRef, input, ViewChild} from '@angular/core';
+import {Message, Sender} from '../../../models/message';
+import {Agent} from '../../services/agent';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {JobPosting} from '../../../models/job-posting';
+import {Jobs} from '../../services/jobs';
+import {CurriculumVitae} from '../../services/curriculum-vitae';
+import {Auth} from '../../../features/auth/services/auth';
 import {Conversation} from '../../../models/conversation';
 import {User} from '../../../features/auth/models/user';
 import {ConversationMessages} from '../../services/conversation-messages';
@@ -42,35 +42,35 @@ export class Chat {
 
   ngOnInit() {
     this.authService.currentUser$.pipe(
-    filter(user => !!user),
-    take(1),
-    switchMap(user => {
-      this.currentUser = user;
+      filter(user => !!user),
+      take(1),
+      switchMap(user => {
+        this.currentUser = user;
 
-      if (this.id()) {
-        return this.jobsService.getJobById(this.id() as string).pipe(
-          switchMap(data => {
-            this.jobPosting = data[0];
+        if (this.id()) {
+          return this.jobsService.getJobById(this.id() as string).pipe(
+            switchMap(data => {
+              this.jobPosting = data[0];
 
-            return this.conversationMessagesService.getConversation(
-              this.currentUser.id,
-              this.jobPosting.id
-            );
-          })
-        );
-      } else {
-        // skip conversation call
-        return of(null);
-      }
-    })
-  ).subscribe({
-    next: (data: any) => {
-      if (data) {
-        this.conversation = data;
-      }
-    },
-    error: (err) => console.error('Error:', err)
-  });
+              return this.conversationMessagesService.getConversation(
+                this.currentUser.id,
+                this.jobPosting.id
+              );
+            })
+          );
+        } else {
+          // skip conversation call
+          return of(null);
+        }
+      })
+    ).subscribe({
+      next: (data: any) => {
+        if (data) {
+          this.conversation = data;
+        }
+      },
+      error: (err) => console.error('Error:', err)
+    });
   }
 
   sendMessage() {
