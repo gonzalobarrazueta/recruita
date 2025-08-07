@@ -6,6 +6,10 @@ import { JobPosting } from '../../../models/job-posting';
 import { Jobs } from '../../services/jobs';
 import { CurriculumVitae } from '../../services/curriculum-vitae';
 import { Auth } from '../../../features/auth/services/auth';
+import {Conversation} from '../../../models/conversation';
+import {User} from '../../../features/auth/models/user';
+import {ConversationMessages} from '../../services/conversation-messages';
+import {filter, of, switchMap, take} from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +23,8 @@ export class Chat {
 
   id = input.required<string>(); // gets the value from the path parameter
   jobPosting: JobPosting = <JobPosting>{};
+  conversation: Conversation = <Conversation>{};
+  currentUser: User = <User>{};
   chatForm!: FormGroup;
   messages: Message[] = [];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
@@ -27,17 +33,44 @@ export class Chat {
 
   constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs,
               private authService: Auth,
-              private CVService: CurriculumVitae) {
+              private CVService: CurriculumVitae,
+              private conversationMessagesService: ConversationMessages) {
     this.chatForm = this.formBuilder.group({
       userInput: ['', Validators.required]
     });
   }
 
   ngOnInit() {
-    if (this.id()) {
-      this.jobsService.getJobById(this.id() as string)
-        .subscribe(data => this.jobPosting = data[0]);
-    }
+    this.authService.currentUser$.pipe(
+    filter(user => !!user),
+    take(1),
+    switchMap(user => {
+      this.currentUser = user;
+
+      if (this.id()) {
+        return this.jobsService.getJobById(this.id() as string).pipe(
+          switchMap(data => {
+            this.jobPosting = data[0];
+
+            return this.conversationMessagesService.getConversation(
+              this.currentUser.id,
+              this.jobPosting.id
+            );
+          })
+        );
+      } else {
+        // skip conversation call
+        return of(null);
+      }
+    })
+  ).subscribe({
+    next: (data: any) => {
+      if (data) {
+        this.conversation = data;
+      }
+    },
+    error: (err) => console.error('Error:', err)
+  });
   }
 
   sendMessage() {
@@ -61,7 +94,6 @@ export class Chat {
       userId: '',
       content: userInput,
       conversationId: '',
-      created_at: '',
       sender: Sender.USER
     });
 
@@ -76,7 +108,6 @@ export class Chat {
             userId: '',
             content: data.response,
             conversationId: '',
-            created_at: '',
             sender: Sender.AI
           });
 
