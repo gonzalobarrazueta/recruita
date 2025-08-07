@@ -3,8 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request
 from langchain_core.messages import ToolMessage, AIMessage, HumanMessage
 from starlette import status
-from .database import Base, engine
-
+from .database.database import Base, engine
 from .agent import graph
 from .models.messages import Messages
 from .models.conversations import Conversations

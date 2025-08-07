@@ -1,10 +1,9 @@
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, DateTime
 from datetime import datetime, UTC
-
 from sqlalchemy.orm import relationship
+from ..database.database import Base
 
-from ..database import Base
 import uuid
 
 class Conversations(Base):
