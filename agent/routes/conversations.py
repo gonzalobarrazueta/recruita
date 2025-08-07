@@ -19,9 +19,9 @@ db_dependency = Annotated[Session, Depends(get_db)]
     path='/{applicant_id}/{job_posting_id}',
     status_code=status.HTTP_200_OK
 )
-async def get_conversation(applicant_id: str, job_posting_id: str, db: db_dependency):
+async def get_conversation(user_id: str, job_posting_id: str, db: db_dependency) -> Conversations:
 
-    conversation = get_or_create_conversation(db, applicant_id, job_posting_id)
+    conversation = get_or_create_conversation(db, user_id, job_posting_id)
 
-    return {"conversation": conversation}
+    return conversation
 
