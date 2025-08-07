@@ -14,7 +14,6 @@ class Messages(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), nullable=False)
-    job_posting_id = Column(UUID(as_uuid=True), nullable=False)
     conversation_id = Column(UUID(as_uuid=True), ForeignKey('conversations.id'), nullable=False)
     created_at = Column(DateTime, default=datetime.now(UTC), nullable=False)
     content = Column(String, nullable=False)
