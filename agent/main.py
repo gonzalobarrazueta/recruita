@@ -7,6 +7,7 @@ from .database.database import Base, engine
 from .agent import graph
 from .models.messages import Messages
 from .models.conversations import Conversations
+from .routes import conversations
 
 app = FastAPI()
 
@@ -17,6 +18,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(conversations.router)
 
 Base.metadata.create_all(bind=engine)
 
