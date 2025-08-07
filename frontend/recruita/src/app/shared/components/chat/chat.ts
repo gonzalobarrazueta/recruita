@@ -88,32 +88,30 @@ export class Chat {
 
     this.selectedFile = null; // Reset the selected file after sending
 
-    this.messages.push({
-      id: '',
-      userId: '',
+    let user_message: Message = {
+      userId: this.currentUser.id,
       content: userInput,
-      conversationId: '',
+      conversationId: this.conversation.id,
       sender: Sender.USER
-    });
+    };
+    this.messages.push(user_message);
 
     this.scrollToBottom();
     this.waitingForAgentResponse = true;
 
-    if (userInput) {
-      this.agentService.sendMessage(userInput)
-        .subscribe(data => {
-          this.messages.push({
-            id: '',
-            userId: '',
-            content: data.response,
-            conversationId: '',
-            sender: Sender.AI
-          });
+    // Asks agent
+    this.agentService.askAgent(user_message.content)
+      .subscribe(data => {
+        let ai_message: Message = {
+          userId: this.currentUser.id,
+          content: data.response,
+          conversationId: this.conversation.id,
+          sender: Sender.AI
+        }
+        this.messages.push(ai_message);
 
-          this.waitingForAgentResponse = false;
-
-        })
-    }
+        this.waitingForAgentResponse = false;
+      })
 
     this.chatForm.reset();
   }
