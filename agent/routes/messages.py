@@ -21,8 +21,8 @@ db_dependency = Annotated[Session, Depends(get_db)]
 )
 async def create_message(request: Request, db: db_dependency):
     data = await request.json()
-    user_id: UUID = data['user_id']
-    conversation_id: UUID = data['conversation_id']
+    user_id: UUID = data['userId']
+    conversation_id: UUID = data['conversationId']
     content: str = data['content']
     sender: Sender = data['sender']
 
