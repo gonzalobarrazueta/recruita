@@ -4,7 +4,7 @@ from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage, ToolMessage
 from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
-from langchain_ollama import ChatOllama
+from langchain_openai import ChatOpenAI
 
 from .tools.create_job_posting import create_job_posting
 
@@ -16,12 +16,15 @@ tools = [
     create_job_posting
     ]
 
-llm = ChatOllama(model='qwen3').bind_tools(tools)
+llm = ChatOpenAI(
+    model='gpt-4o-mini',
+    temperature=0
+).bind_tools(tools)
 
 def chatbot(state: AgentState) -> AgentState:
     system_prompt = SystemMessage(content=f"""
     Eres un asistente de recursos humanos. Tienes acceso a diversas herramientas que te permiten actualizar el estado de los procesos de los postulantes, finalizar procesos, enviar correos y más.
-    Los usuarios con los que interactuarás son postulantes o reclutadores que te dirán qué acción realizar. Según el contexto y tu comprensión del mensaje, decide cuál herramienta usar y con qué parámetros. Lee bien las descripciones y los campos requeridos de cada herramienta antes de usarlas. Toda la conversación es es español, así que deberías responder en ese idioma.
+    Los usuarios con los que interactuarás son postulantes o reclutadores que te dirán qué acción realizar. Según el contexto y tu comprensión del mensaje, decide cuál herramienta usar y con qué parámetros. Lee bien las descripciones y los campos requeridos de cada herramienta antes de usarlas. Toda la conversación es es español, así que debes responder en ese idioma.
     """)
 
     all_messages = [system_prompt] + list(state['messages']) # + [HumanMessage(content=user_message)]
@@ -62,6 +65,6 @@ graph_builder.add_conditional_edges(
     }
 )
 
-graph_builder.add_edge('tools', END)
+graph_builder.add_edge('tools', 'chatbot')
 
 graph = graph_builder.compile()
