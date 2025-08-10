@@ -96,6 +96,17 @@ export class Chat {
     };
     this.messages.push(user_message);
 
+    this.conversationMessagesService
+      .createMessage(user_message)
+      .subscribe({
+        next: () => {
+          console.log("Message sent successfully");
+        },
+        error: (err) => {
+          console.error("Error sending message:", err);
+        }
+      });
+
     this.scrollToBottom();
     this.waitingForAgentResponse = true;
 
@@ -109,6 +120,7 @@ export class Chat {
           sender: Sender.AI
         }
         this.messages.push(ai_message);
+        this.conversationMessagesService.createMessage(ai_message);
 
         this.waitingForAgentResponse = false;
       })
