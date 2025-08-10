@@ -111,9 +111,15 @@ export class Chat {
     this.waitingForAgentResponse = true;
 
     // Asks agent
+    let jobInformation: string = JSON.stringify({
+      title: this.jobPosting.title,
+      description: this.jobPosting.fullDescription,
+      requirements: this.jobPosting.requirements
+    });
+
     this.agentService.askAgent(
       user_message.content,
-      this.jobPosting.fullDescription,
+      jobInformation,
       this.conversation.id
     )
       .subscribe(data => {
