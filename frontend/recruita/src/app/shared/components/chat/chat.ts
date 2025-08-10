@@ -10,11 +10,13 @@ import {Conversation} from '../../../models/conversation';
 import {User} from '../../../features/auth/models/user';
 import {ConversationMessages} from '../../services/conversation-messages';
 import {filter, of, switchMap, take} from 'rxjs';
+import {MarkdownPipe} from '../../../pipes/markdown-pipe';
 
 @Component({
   selector: 'app-chat',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MarkdownPipe
   ],
   templateUrl: './chat.html',
   styleUrl: './chat.scss'

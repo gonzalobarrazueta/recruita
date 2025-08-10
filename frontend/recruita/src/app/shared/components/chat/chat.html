@@ -14,9 +14,7 @@
             <span class="message-text">{{ message.content }}</span>
           </div>
         } @else { <!-- AI response -->
-          <div class="message message-type-ai">
-            <span class="message-text">{{ message.content }}</span>
-          </div>
+          <div class="message message-type-ai" [innerHtml]="message.content | markdown"></div>
         }
       }
 
