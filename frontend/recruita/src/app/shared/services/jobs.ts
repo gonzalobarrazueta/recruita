@@ -29,7 +29,7 @@ export class Jobs {
               companyName: job.company_name,
               companyImage: job.company_image,
               requirements: job.requirements,
-              fullDescription: job.fullDescription
+              fullDescription: job.full_description
             })
           )
         )
@@ -50,7 +50,7 @@ export class Jobs {
               companyName: job.company_name,
               companyImage: job.company_image,
               requirements: job.requirements,
-              fullDescription: job.fullDescription
+              fullDescription: job.full_description
             })
           )
         )
@@ -71,7 +71,7 @@ export class Jobs {
               companyName: job.company_name,
               companyImage: job.company_image,
               requirements: job.requirements,
-              fullDescription: job.fullDescription
+              fullDescription: job.full_description
             })
           )
         )
