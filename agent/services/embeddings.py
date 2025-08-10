@@ -1,6 +1,7 @@
 from pinecone import Pinecone, ServerlessSpec
 from openai import OpenAI
 from dotenv import load_dotenv
+from typing import List
 from uuid import uuid4
 import os
 
@@ -37,16 +38,17 @@ def embed_text(text: str):
         model='text-embedding-3-small'
     ).data[0].embedding
 
-def store_embeddings(user_prompt: str, conversation_id: str):
-
-    emb = embed_text(user_prompt)
+def store_embeddings(embedding: List[float], text: str, conversation_id: str):
 
     index = get_index(messages_index_name)
 
     index.upsert(
         vectors=[{
             'id': str(uuid4()),
-            'values': emb,
-            'metadata': {'conversation_id': conversation_id}
+            'values': embedding,
+            'metadata': {
+                'conversation_id': conversation_id,
+                'text': text
+            }
         }]
     )
