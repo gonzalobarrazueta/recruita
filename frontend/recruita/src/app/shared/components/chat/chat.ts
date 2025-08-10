@@ -111,7 +111,11 @@ export class Chat {
     this.waitingForAgentResponse = true;
 
     // Asks agent
-    this.agentService.askAgent(user_message.content)
+    this.agentService.askAgent(
+      user_message.content,
+      this.jobPosting.fullDescription,
+      this.conversation.id
+    )
       .subscribe(data => {
         let ai_message: Message = {
           userId: this.currentUser.id,

@@ -12,7 +12,12 @@ export class Agent {
 
   constructor(private http: HttpClient) { }
 
-  askAgent(userInput: string): Observable<{ response: string }> {
-    return this.http.post<{ response: string }>(this.agentApiURL, { "user_input": userInput });
+  askAgent(userInput: string, jobDescription: string, conversationId: string): Observable<{ response: string }> {
+    const payload = {
+      user_input: userInput,
+      job_description: jobDescription,
+      conversation_id: conversationId
+    }
+    return this.http.post<{ response: string }>(this.agentApiURL, payload);
   }
 }
