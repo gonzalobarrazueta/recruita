@@ -52,3 +52,24 @@ def store_embeddings(embedding: List[float], text: str, conversation_id: str):
             }
         }]
     )
+
+# Returns a single string containing relevant past messages related to the current user query
+def build_query_context(user_query: str, conversation_id: str) -> str:
+    emb = embed_text(user_query)
+
+    store_embeddings(emb, user_query, conversation_id)
+
+    index = get_index(messages_index_name)
+
+    results = index.query(
+        vector=emb,
+        top_k=3,
+        include_metadata=True,
+        filter={
+            'conversation_id': {'$eq': conversation_id}
+        }
+    )
+
+    context = "\n".join([match['metadata']['text'] for match in results['matches']])
+
+    return context
