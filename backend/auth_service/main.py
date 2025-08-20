@@ -6,6 +6,7 @@ from .routes.auth import get_current_user
 from starlette import status
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import auth
+from .routes import users
 
 app = FastAPI()
 
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+app.include_router(users.router)
 
 Base.metadata.create_all(bind=engine)
 
