@@ -9,8 +9,9 @@ import {Auth} from '../../../features/auth/services/auth';
 import {Conversation} from '../../../models/conversation';
 import {User} from '../../../features/auth/models/user';
 import {ConversationMessages} from '../../services/conversation-messages';
-import {filter, of, switchMap, take} from 'rxjs';
+import {filter, of, switchMap, take, tap} from 'rxjs';
 import {MarkdownPipe} from '../../../pipes/markdown-pipe';
+import {Users} from '../../services/users';
 
 @Component({
   selector: 'app-chat',
@@ -26,17 +27,21 @@ export class Chat {
   id = input.required<string>(); // gets the value from the path parameter
   jobPosting: JobPosting = <JobPosting>{};
   conversation: Conversation = <Conversation>{};
-  currentUser: User = <User>{};
+  currentUser: User = <User>{}; // This only contains the user's id, role and token
+  userData: any = null; // This contains the user data like email, phone, organization, etc.
   chatForm!: FormGroup;
   messages: Message[] = [];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   waitingForAgentResponse: boolean = false;
   selectedFile: File | null = null;
+  cvContent: string = "";
+  associatedRecruiter: any = null;
 
   constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs,
               private authService: Auth,
               private CVService: CurriculumVitae,
-              private conversationMessagesService: ConversationMessages) {
+              private conversationMessagesService: ConversationMessages,
+              private usersService: Users) {
     this.chatForm = this.formBuilder.group({
       userInput: ['', Validators.required]
     });
@@ -49,21 +54,38 @@ export class Chat {
       switchMap(user => {
         this.currentUser = user;
 
-        if (this.id()) {
-          return this.jobsService.getJobById(this.id() as string).pipe(
-            switchMap(data => {
-              this.jobPosting = data[0];
-
-              return this.conversationMessagesService.getConversation(
-                this.currentUser.id,
-                this.jobPosting.id
+        // fetch applicant data
+        return this.usersService.getUserById(this.currentUser.id).pipe(
+          tap(data => {
+            this.userData = data;
+          }),
+          // continue with job logic
+          switchMap(() => {
+            if (this.id()) {
+              return this.jobsService.getJobById(this.id() as string).pipe(
+                switchMap(data => {
+                  this.jobPosting = data[0];
+                  // fetch recruiter data using the recruiter_id from the job posting
+                  return this.usersService.getUserById(this.jobPosting.recruiterId).pipe(
+                    tap(data => {
+                      this.associatedRecruiter = data;
+                    }),
+                    switchMap(() =>
+                      this.conversationMessagesService
+                        .getConversation(
+                          this.currentUser.id,
+                          this.jobPosting.id
+                        )
+                    )
+                  );
+                })
               );
-            })
-          );
-        } else {
-          // skip conversation call
-          return of(null);
-        }
+            } else {
+              // skip conversation call
+              return of(null);
+            }
+          })
+        );
       })
     ).subscribe({
       next: (data: any) => {
@@ -82,7 +104,7 @@ export class Chat {
       this.CVService.uploadCV(this.selectedFile, this.currentUser.id)
         .subscribe(
           {
-            next: (data) => console.log(data),
+            next: (data) => this.cvContent = data["response"],
             error: (e) => console.error('Error uploading file:', e)
           }
         );
