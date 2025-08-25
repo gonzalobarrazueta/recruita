@@ -12,11 +12,11 @@ export class CurriculumVitae {
 
   constructor(private http: HttpClient) { }
 
-  uploadCV(file: File, applicantId: string): Observable<any> {
+  uploadCV(file: File, applicantId: string, jobPostingId: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('applicant_id', applicantId);
-
+    formData.append('job_posting_id', jobPostingId);
     return this.http.post(this.CVApiURL, formData);
   }
 }
