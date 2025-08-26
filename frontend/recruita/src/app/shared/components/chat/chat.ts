@@ -142,7 +142,7 @@ export class Chat {
     });
 
     this.agentService.askAgent(
-      user_message.content,
+      this.enrichMessageContent(user_message.content, this.cvContent),
       jobInformation,
       this.conversation.id
     )
@@ -169,6 +169,15 @@ export class Chat {
       this.selectedFile = input.files[0];
       console.log(input.files[0])
     }
+  }
+
+  enrichMessageContent(userInput: string, cvContent: string | null): string {
+    let enrichedMessage: string = `- User input: ${userInput} `;
+    enrichedMessage += cvContent ? `- CV content: ${cvContent} ` : "";
+    enrichedMessage += this.userData.email ? `Applicant email: ${this.userData.email} ` : "";
+    enrichedMessage += this.associatedRecruiter.email ? `- Recruiter email: ${this.associatedRecruiter.email} ` : "";
+
+    return enrichedMessage;
   }
 
   scrollToBottom() {
