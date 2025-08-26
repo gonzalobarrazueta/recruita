@@ -101,10 +101,12 @@ export class Chat {
     let userInput: string = this.chatForm.get('userInput')?.value;
 
     if (this.selectedFile) {
-      this.CVService.uploadCV(this.selectedFile, this.currentUser.id)
+      this.CVService.uploadCV(this.selectedFile, this.currentUser.id, this.jobPosting.id)
         .subscribe(
           {
-            next: (data) => this.cvContent = data["response"],
+            next: (data) => {
+              this.cvContent = data["response"]["content"];
+            },
             error: (e) => console.error('Error uploading file:', e)
           }
         );
