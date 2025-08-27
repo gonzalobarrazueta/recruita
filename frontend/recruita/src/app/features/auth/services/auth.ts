@@ -33,7 +33,6 @@ export class Auth {
   }
 
   login(email: string, password: string): Observable<any> {
-    console.log('login()')
     const body = new URLSearchParams();
     body.set('username', email);
     body.set('password', password);
