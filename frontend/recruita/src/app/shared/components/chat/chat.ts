@@ -132,6 +132,8 @@ export class Chat {
       requirements: this.jobPosting.requirements
     });
 
+    this.waitingForAgentResponse = true;
+
     // Asks agent
     if (this.selectedFile) {
       this.CVService.uploadCV(this.selectedFile, this.currentUser.id, this.jobPosting.id)
@@ -162,7 +164,6 @@ export class Chat {
       conversationId,
     )
       .subscribe(data => {
-        this.waitingForAgentResponse = true;
 
         let ai_message: Message = {
           userId: this.currentUser.id,
