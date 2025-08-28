@@ -37,11 +37,14 @@ export class Chat {
   cvContent: string = "";
   associatedRecruiter: any = null;
 
-  constructor(private formBuilder: FormBuilder, private agentService: Agent, private jobsService: Jobs,
+  constructor(private formBuilder: FormBuilder,
+              private agentService: Agent,
+              private jobsService: Jobs,
               private authService: Auth,
               private CVService: CurriculumVitae,
               private conversationMessagesService: ConversationMessages,
-              private usersService: Users) {
+              private usersService: Users
+  ) {
     this.chatForm = this.formBuilder.group({
       userInput: ['', Validators.required]
     });
@@ -114,10 +117,10 @@ export class Chat {
       .createMessage(user_message)
       .subscribe({
         next: () => {
-          console.log("Message sent successfully");
+          console.log("Message saved successfully");
         },
         error: (err) => {
-          console.error("Error sending message:", err);
+          console.error("Error saving message:", err);
         }
       });
 
@@ -180,7 +183,6 @@ export class Chat {
 
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      console.log(input.files[0])
     }
   }
 
