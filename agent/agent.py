@@ -6,6 +6,7 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
 from langchain_openai import ChatOpenAI
 
+from .tools.apply_to_job import apply_to_job
 from .tools.create_job_posting import create_job_posting
 
 
@@ -13,8 +14,9 @@ class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
 
 tools = [
-    create_job_posting
-    ]
+    create_job_posting,
+    apply_to_job
+]
 
 llm = ChatOpenAI(
     model='gpt-4o-mini',
