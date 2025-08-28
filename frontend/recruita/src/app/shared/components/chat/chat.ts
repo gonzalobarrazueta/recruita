@@ -98,21 +98,9 @@ export class Chat {
   }
 
   sendMessage() {
+
     let userInput: string = this.chatForm.get('userInput')?.value;
-
-    if (this.selectedFile) {
-      this.CVService.uploadCV(this.selectedFile, this.currentUser.id, this.jobPosting.id)
-        .subscribe(
-          {
-            next: (data) => {
-              this.cvContent = data["response"]["content"];
-            },
-            error: (e) => console.error('Error uploading file:', e)
-          }
-        );
-    }
-
-    this.selectedFile = null; // Reset the selected file after sending
+    let messageForAgent: string = "";
 
     let user_message: Message = {
       userId: this.currentUser.id,
@@ -134,34 +122,57 @@ export class Chat {
       });
 
     this.scrollToBottom();
-    this.waitingForAgentResponse = true;
 
-    // Asks agent
     let jobInformation: string = JSON.stringify({
       title: this.jobPosting.title,
       description: this.jobPosting.fullDescription,
       requirements: this.jobPosting.requirements
     });
 
+    // Asks agent
+    if (this.selectedFile) {
+      this.CVService.uploadCV(this.selectedFile, this.currentUser.id, this.jobPosting.id)
+        .subscribe({
+          next: (data) => {
+            this.cvContent = data["response"]["content"];
+
+            messageForAgent = this.enrichMessageContent(user_message.content, this.cvContent);
+
+            this.askAgent(messageForAgent, jobInformation, this.conversation.id);
+          },
+          error: (e) => {
+            console.error('Error uploading CV:', e)
+          }
+        });
+      this.selectedFile = null; // Reset the selected file after sending
+    } else {
+      this.askAgent(userInput, jobInformation, this.conversation.id);
+    }
+
+    this.chatForm.reset();
+  }
+
+  askAgent(message: string, jobInformation: string, conversationId: string) {
     this.agentService.askAgent(
-      this.enrichMessageContent(user_message.content, this.cvContent),
+      message,
       jobInformation,
-      this.conversation.id
+      conversationId,
     )
       .subscribe(data => {
+        this.waitingForAgentResponse = true;
+
         let ai_message: Message = {
           userId: this.currentUser.id,
           content: data.response,
           conversationId: this.conversation.id,
           sender: Sender.AI
         }
+
         this.messages.push(ai_message);
         this.conversationMessagesService.createMessage(ai_message);
 
         this.waitingForAgentResponse = false;
-      })
-
-    this.chatForm.reset();
+      });
   }
 
   onFileSelected(event: Event) {
