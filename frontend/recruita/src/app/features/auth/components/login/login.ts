@@ -17,6 +17,7 @@ import { Auth } from '../../services/auth';
 })
 export class Login {
   loginForm!: FormGroup;
+  showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private authService: Auth, private router: Router) {
     this.loginForm = this.formBuilder.group({
@@ -61,5 +62,9 @@ export class Login {
         this.loginForm.get('password')?.value
       );
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }
