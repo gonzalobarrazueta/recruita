@@ -74,6 +74,32 @@
     }
   }
 
+  .form-element:has(input[name="password"]) {
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+
+      font-family: 'Material Symbols Rounded';
+    }
+
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    .toggle-visibility {
+      position: absolute;
+      right: 12px;
+
+      color: #596561;
+      cursor: pointer;
+      font-size: 20px;
+    }
+  }
+
   .go-to-signup {
     font-weight: 600;
 
