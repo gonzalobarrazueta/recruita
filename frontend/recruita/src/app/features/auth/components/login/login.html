@@ -22,11 +22,14 @@
         <div class="form-element">
           <input
             class="text-field"
-            type="text"
+            [type]="showPassword ? 'text' : 'password'"
             formControlName="password"
             placeholder="Contraseña"
             name="password"
           >
+          <span (click)="togglePasswordVisibility()" class="toggle-visibility material-symbols-outlined">
+            {{ showPassword ? "visibility" : "visibility_off" }}
+          </span>
         </div>
       </div>
 
