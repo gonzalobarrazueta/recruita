@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { JobPosting } from '../../../models/job-posting';
-import { Auth } from '../../auth/services/auth';
-import { Jobs } from '../../../shared/services/jobs';
+import { JobPosting } from '../../../../models/job-posting';
+import { Auth } from '../../../auth/services/auth';
+import { Jobs } from '../../../../shared/services/jobs';
 import { RouterLink } from '@angular/router';
 
 @Component({

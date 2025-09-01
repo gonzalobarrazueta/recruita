@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import { SignUp } from './features/auth/components/sign-up/sign-up';
 import { Login } from './features/auth/components/login/login';
 import { JobPostings } from './features/applicant/components/job-postings/job-postings';
-import { JobListings } from './features/recruiter/job-listings/job-listings';
+import { JobListings } from './features/recruiter/components/job-listings/job-listings';
 import { Chat } from './shared/components/chat/chat';
-import { Results } from './features/recruiter/results/results';
-import { CandidateProfile } from './features/recruiter/candidate-profile/candidate-profile';
+import { Results } from './features/recruiter/components/results/results';
+import { CandidateProfile } from './features/recruiter/components/candidate-profile/candidate-profile';
 
 export const routes: Routes = [
   { path: '', component: SignUp },

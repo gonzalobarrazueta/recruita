@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import { Applicant } from '../../../models/applicant';
+import { Applicant } from '../../../../models/applicant';
 
 @Component({
   selector: 'app-results',
