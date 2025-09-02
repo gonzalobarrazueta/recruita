@@ -6,7 +6,7 @@ from uuid import UUID
 
 from ..database import SessionLocal
 from ..models.job_matches import JobMatches
-from ..schemas.job_matches import JobMatchResponse
+from ..schemas.job_matches import JobMatchResponse, CreateJobMatch
 
 router = APIRouter(
     prefix='/matches',
@@ -27,15 +27,13 @@ db_dependency = Annotated[Session, Depends(get_db)]
     status_code=status.HTTP_201_CREATED
 )
 def add_match(
-        applicant_id: str,
-        job_posting_id: str,
-        match: float,
+        create_job_match: CreateJobMatch,
         db: db_dependency
 ):
     job_match = JobMatches(
-        job_id=job_posting_id,
-        applicant_id=applicant_id,
-        match_percentage=match,
+        job_id=create_job_match.jobid,
+        applicant_id=create_job_match.applicant_id,
+        match_percentage=create_job_match.match_percentage,
     )
 
     db.add(job_match)
