@@ -2,14 +2,20 @@ from typing import Optional
 from langchain_openai import OpenAIEmbeddings
 from langchain_core.tools import tool
 from dotenv import load_dotenv
+
 import numpy as np
+import requests
+import logging
+import os
 
 load_dotenv()
 
 @tool
 def apply_to_job(
     cv_content: str,
+    job_id: str,
     job_description: str,
+    applicant_id: str,
     applicant_email: str,
     recruiter_email: str,
     threshold: Optional[float] = 0.75
@@ -19,7 +25,9 @@ def apply_to_job(
 
     Argumentos:
     - cv_content: Texto extraído del CV del postulante.
+    - job_id: Identificador del trabajo.
     - job_description: Descripción textual de la oferta de trabajo.
+    - applicant_id: Identificador del postulante.
     - applicant_email: Correo de contacto del postulante.
     - recruiter_email: Correo de contacto del reclutador.
     - threshold: Umbral de coincidencia entre 0 y 1 (valor por defecto = 0.75).
@@ -37,12 +45,29 @@ def apply_to_job(
         Se devuelve un mensaje de rechazo cordial, acompañado de retroalimentación
         útil para el postulante.
     """
-    print(f"""
-    applicant_email: {applicant_email},
-    recruiter_email: {recruiter_email}""")
 
     match_percentage = compute_similarity(cv_content, job_description)
     print(f'match_percentage: {match_percentage}')
+
+    # Save match data
+    try:
+        response = requests.post(
+            url=f'{os.getenv('JOB_POSTINGS_API_URL')}/matches/add',
+            json={
+                'job_id': job_id,
+                'applicant_id': applicant_id,
+                'match_percentage': match_percentage
+            },
+            timeout=10
+        )
+        # Handle non-200 responses
+        if not response.ok:
+            logging.error(
+                f"Failed to add match. Status: {response.status_code}"
+                f"Response: {response.text}"
+            )
+    except requests.RequestException as e:
+        logging.error(f'Request to add match failed: {e}')
 
     if match_percentage >= threshold:
         # Positive match
