@@ -189,7 +189,9 @@ export class Chat {
 
   enrichMessageContent(userInput: string, cvContent: string | null): string {
     let enrichedMessage: string = `- User input: ${userInput} `;
+    enrichedMessage += this.jobPosting.id ? `- Job ID: ${this.jobPosting.id} ` : "";
     enrichedMessage += cvContent ? `- CV content: ${cvContent} ` : "";
+    enrichedMessage += this.currentUser.id ? `- Applicant ID: ${this.currentUser.id} ` : "";
     enrichedMessage += this.userData.email ? `Applicant email: ${this.userData.email} ` : "";
     enrichedMessage += this.associatedRecruiter.email ? `- Recruiter email: ${this.associatedRecruiter.email} ` : "";
 
