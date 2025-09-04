@@ -21,8 +21,7 @@ export class JobListings {
       if (user) {
         this.jobsService.getJobsByRecruiterId(user.id)
           .subscribe(jobs => {
-            this.jobPostings = jobs
-            console.log(this.jobPostings)
+            this.jobPostings = jobs;
           });
       } else {
         console.error('JobListings component: No user found');
