@@ -29,6 +29,6 @@ db_dependency = Annotated[Session, Depends(get_db)]
 def get_user_by_id(user_id: str, db: db_dependency):
     result = db.query(Users).filter(Users.id == user_id).first()
     if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='CV not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
 
     return result
