@@ -19,3 +19,4 @@ class Users(Base):
     role = Column(Enum(UserRole), nullable=False)
     password = Column(String, nullable=False)
     organization = Column(String)
+    pfp_image = Column(String)
