@@ -4,7 +4,7 @@
   <div class="job-postings-list">
     <div class="job-postings">
       @for (posting of jobPostings; track posting.title) {
-        <article class="job" [routerLink]="'/results'">
+        <article class="job" [routerLink]="['/results', posting.id]">
           @if (posting.hasNotifications) {
             <div class="notification-badge">
               {{ posting.hasNotifications }}
