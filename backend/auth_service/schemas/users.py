@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 from uuid import UUID
 
@@ -18,7 +20,7 @@ class UserResponse(BaseModel):
     email: str
     role: str
     organization: str
-    pfp_image: str
+    pfp_image: Optional[str] = None
 
     class Config:
         from_attributes = True
