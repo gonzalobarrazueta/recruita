@@ -16,8 +16,8 @@ import {Users} from '../../../../shared/services/users';
 export class Results {
 
   jobPostingId!: string | null;
-  top_candidates: Applicant[] = []
-  additional_candidates: Applicant[] = []
+  topCandidates: Applicant[] = [];
+  additionalCandidates: Applicant[] = [];
 
   @ViewChild('scrollableList', { static: false }) scrollContainer!: ElementRef;
 
@@ -38,7 +38,7 @@ export class Results {
           switchMap((match: any) => this.usersService.getUserById(match["applicant_id"]))
         )
         .subscribe(user => {
-          this.top_candidates.push({
+          this.topCandidates.push({
             userId: user["id"],
             pfp: user["pfp_image"],
             name: `${user["name"]} ${user["last_name"]}`,

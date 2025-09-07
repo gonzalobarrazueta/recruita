@@ -1,9 +1,9 @@
-@if (top_candidates.length > 0) {
+@if (topCandidates.length > 0) {
   <div class="job-postings-wrapper">
     <h2 class="job-postings-title">Candidatos más aptos</h2>
     <div class="job-postings-list">
       <div class="top-candidates">
-        @for (candidate of top_candidates; track candidate.name) {
+        @for (candidate of topCandidates; track candidate.name) {
           <article class="job top-candidate-card" [routerLink]="['/results', candidate.name]">
             <div class="company-img">
               <img src="{{ candidate.pfp }}" alt="Company Logo">
@@ -20,14 +20,14 @@
   </div>
 }
 
-@if (additional_candidates.length > 0) {
+@if (additionalCandidates.length > 0) {
   <div class="job-postings-wrapper">
     <h2 class="job-postings-title others">Otros candidatos</h2>
     <div class="job-postings-list">
       <button class="scroll-btn left" style="color:#fff" (click)="scrollLeft()">&larr;</button>
 
       <div class="job-postings" #scrollableList>
-        @for (candidate of additional_candidates; track candidate.name) {
+        @for (candidate of additionalCandidates; track candidate.name) {
           <article class="job" [routerLink]="['/results', candidate.name]">
             <div class="company-img">
               <img src="{{ candidate.pfp }}" alt="Company Logo">
