@@ -50,6 +50,8 @@ export class Results {
             userId: user["id"],
             pfp: user["pfp_image"],
             name: `${user["name"]} ${user["last_name"]}`,
+            email: "",
+            phoneNumber: "",
             experience: 0,
             skills: ""
           });
