@@ -2,7 +2,7 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import { Applicant } from '../../../../models/applicant';
 import {JobMatching} from '../../services/job-matching';
-import {filter, from, switchMap} from 'rxjs';
+import {EMPTY, filter, from, switchMap} from 'rxjs';
 import {Users} from '../../../../shared/services/users';
 
 @Component({
@@ -18,6 +18,7 @@ export class Results {
   jobPostingId!: string | null;
   topCandidates: Applicant[] = [];
   additionalCandidates: Applicant[] = [];
+  noCandidates: boolean = true;
 
   @ViewChild('scrollableList', { static: false }) scrollContainer!: ElementRef;
 
@@ -33,7 +34,14 @@ export class Results {
     if (this.jobPostingId) {
       this.jobMatchingService.getJobMatchesByJobPosting(this.jobPostingId as string)
         .pipe(
-          switchMap((matches: any) => from(matches)),
+          switchMap((matches: any) => {
+            if (!matches || matches.length === 0) {
+              return EMPTY;
+            } else {
+              this.noCandidates = false;
+              return from(matches);
+            }
+          }),
           filter((match: any) => (match["match_percentage"] >= 0.75)),
           switchMap((match: any) => this.usersService.getUserById(match["applicant_id"]))
         )
