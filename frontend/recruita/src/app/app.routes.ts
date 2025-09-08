@@ -15,5 +15,6 @@ export const routes: Routes = [
   { path: 'jobs/:id', component: Chat },
   { path: 'manage-jobs', component: JobListings },
   { path: 'chat', component: Chat },
-  { path: 'results/:id', component: Results }
+  { path: 'results/:id', component: Results },
+  { path: 'results/applicant/:id', component: CandidateProfile },
 ];
