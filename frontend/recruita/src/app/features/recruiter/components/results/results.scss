@@ -4,6 +4,17 @@
   color: #fff;
 }
 
+.no-candidates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    color: #FFED3DFF;
+  }
+}
+
 .job-postings-wrapper {
   margin-top: 32px;
 }
