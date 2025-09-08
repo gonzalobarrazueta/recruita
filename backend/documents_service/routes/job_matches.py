@@ -51,7 +51,4 @@ def get_job_matches_by_job_posting(
 ):
     matches = db.query(JobMatches).filter(JobMatches.job_id == job_posting_id).all()
 
-    if not matches:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job posting not found")
-
     return matches
