@@ -9,7 +9,7 @@
       <div class="job-postings-list">
         <div class="top-candidates">
           @for (candidate of topCandidates; track candidate.name) {
-            <article class="job top-candidate-card" [routerLink]="['/results', candidate.name]">
+            <article class="job top-candidate-card" [routerLink]="['/results/applicant', candidate.userId]">
               <div class="company-img">
                 <img src="{{ candidate.pfp }}" alt="Company Logo">
               </div>
