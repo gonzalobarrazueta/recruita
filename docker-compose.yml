@@ -1,0 +1,22 @@
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: ./agent/Dockerfile
+    container_name: agent-service
+    env_file:
+      - ./agent/.env
+    ports:
+      - "8002:8002"
+    command: python -m uvicorn agent.main:app --host 0.0.0.0 --port 8002
+
+  auth:
+    build:
+      context: .
+      dockerfile: ./backend/auth_service/Dockerfile
+    container_name: auth-service
+    env_file:
+      - ./backend/auth_service/.env
+    ports:
+      - "8000:8000"
+    command: python -m uvicorn auth_service.main:app --host 0.0.0.0 --port 8000
