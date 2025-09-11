@@ -9,7 +9,7 @@ from .database.database import Base, engine, get_db
 from .agent import graph
 from .models.messages import Messages
 from .models.conversations import Conversations
-from .routes import conversations, messages
+from .routes import conversations, messages, audio
 from .services.conversations import get_or_create_conversation
 from .services.embeddings import build_query_context, embed_text, store_embeddings
 
@@ -25,6 +25,7 @@ app.add_middleware(
 
 app.include_router(conversations.router)
 app.include_router(messages.router)
+app.include_router(audio.router)
 
 Base.metadata.create_all(bind=engine)
 
