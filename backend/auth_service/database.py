@@ -7,7 +7,7 @@ import os
 
 load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = os.getenv('DB_CONNECTION_STRING')
+SQLALCHEMY_DATABASE_URL = os.getenv('DB_CONNECTION_STRING_AUTH')
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
