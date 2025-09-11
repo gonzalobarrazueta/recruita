@@ -4,9 +4,10 @@ dotenv~=0.9.9
 python-dotenv~=1.1.0
 ollama~=0.5.1
 pinecone~=7.0.2
-langgraph~=0.4.8
+langgraph>=0.6.7
 SQLAlchemy~=2.0.41
 fastapi~=0.115.12
+uvicorn[standard]
 starlette~=0.46.2
 python-jose~=3.5.0
 pydantic~=2.11.5
@@ -16,3 +17,5 @@ numpy~=2.3.2
 langchain-openai~=0.3.29
 openai~=1.99.5
 docx2txt~=0.9
+psycopg2-binary
+python-multipart
