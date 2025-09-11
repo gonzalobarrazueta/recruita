@@ -1,0 +1,12 @@
+requests~=2.32.3
+dotenv~=0.9.9
+python-dotenv~=1.1.0
+SQLAlchemy~=2.0.41
+fastapi~=0.115.12
+uvicorn[standard]
+starlette~=0.46.2
+python-jose~=3.5.0
+pydantic~=2.11.5
+psycopg2-binary
+python-multipart
+bcrypt~=4.3.0
