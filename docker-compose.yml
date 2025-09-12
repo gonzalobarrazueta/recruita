@@ -20,3 +20,14 @@ services:
     ports:
       - "8000:8000"
     command: python -m uvicorn auth_service.main:app --host 0.0.0.0 --port 8000
+
+  documents:
+    build:
+      context: .
+      dockerfile: ./backend/documents_service/Dockerfile
+    container_name: documents-service
+    env_file:
+      - ./backend/documents_service/.env
+    ports:
+      - "8001:8001"
+    command: python -m uvicorn documents_service.main:app --host 0.0.0.0 --port 8001
