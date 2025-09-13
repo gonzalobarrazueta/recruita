@@ -18,6 +18,7 @@
             placeholder="Nombre"
             name="name"
           >
+          <div class="validation-message">{{ getControlError('name') }}</div>
         </div>
         <div class="form-element">
           <input
@@ -27,6 +28,7 @@
             placeholder="Apellido"
             name="lastName"
           >
+          <div class="validation-message">{{ getControlError('lastName') }}</div>
         </div>
         <div class="form-element">
           <select
@@ -47,6 +49,7 @@
             placeholder="Número de teléfono"
             name="phoneNumber"
           >
+          <div class="validation-message">{{ getControlError('phoneNumber') }}</div>
         </div>
         <div class="form-element">
           <input

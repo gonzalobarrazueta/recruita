@@ -24,9 +24,9 @@ export class SignUp {
 
   constructor(private formBuilder: FormBuilder, private authService: Auth, private router: Router) {
     this.signUpForm = this.formBuilder.group({
-      name: [],
-      lastName: [],
-      phoneNumber: [],
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       userRole: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
