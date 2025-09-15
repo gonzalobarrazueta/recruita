@@ -1,5 +1,5 @@
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import Column, String, Enum
+from sqlalchemy import Column, String, Enum, Boolean
 from ..database import Base
 import uuid
 import enum
@@ -20,3 +20,4 @@ class Users(Base):
     password = Column(String, nullable=False)
     organization = Column(String)
     pfp_image = Column(String)
+    terms_conditions_accepted = Column(Boolean, default=False)
