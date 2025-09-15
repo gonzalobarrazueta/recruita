@@ -8,6 +8,7 @@ from langchain_openai import ChatOpenAI
 
 from .tools.apply_to_job import apply_to_job
 from .tools.create_job_posting import create_job_posting
+from .tools.upload_embeddings_tool import upload_embeddings
 
 
 class AgentState(TypedDict):
@@ -15,7 +16,8 @@ class AgentState(TypedDict):
 
 tools = [
     create_job_posting,
-    apply_to_job
+    apply_to_job,
+    upload_embeddings
 ]
 
 llm = ChatOpenAI(
