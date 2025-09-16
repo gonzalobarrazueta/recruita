@@ -21,7 +21,7 @@ class UserResponse(BaseModel):
     role: str
     organization: str
     pfp_image: Optional[str] = None
-    terms_conditions_accepted: Optional[bool]
+    terms_conditions_accepted: Optional[bool] = None
 
     class Config:
         from_attributes = True
