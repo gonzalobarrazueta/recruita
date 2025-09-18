@@ -1,0 +1,38 @@
+.terms-and-conditions {
+  width: 100%;
+  max-width: 570px;
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 3px solid #83ffc1;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .accept-button {
+    background-color: #8de67a;
+  }
+
+  .decline-button {
+    background-color: #e86f6f;
+  }
+}
