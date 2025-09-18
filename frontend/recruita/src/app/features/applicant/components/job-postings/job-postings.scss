@@ -103,3 +103,10 @@
 .job-postings-wrapper:last-of-type {
   padding-bottom: 24px;
 }
+
+.terms-and-conditions-container {
+  padding: 5%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
