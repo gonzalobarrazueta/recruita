@@ -37,14 +37,41 @@
       </div>
     }
     <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-      <button class="icon-button " type="button">
-        <span class="material-symbols-rounded">graphic_eq</span>
+      <button class="icon-button" type="button" (click)="toggleRecording()">
+        @if (isRecording()) {
+          <span class="material-symbols-rounded">stop_circle</span>
+        } @else {
+          <span class="material-symbols-rounded">graphic_eq</span>
+        }
       </button>
+
       <input class="add-file" type="file" #fileUpload (change)="onFileSelected($event)" accept=".doc, .docx, .pdf, .txt">
-      <button class="icon-button " type="button" (click)="fileUpload.click()">
+      <button class="icon-button" type="button" (click)="fileUpload.click()">
         <span class="material-symbols-rounded">attach_file_add</span>
       </button>
-      <input class="user-message" type="text" placeholder="Escribe aquí..." formControlName="userInput" required />
+
+      @if (isRecording()) {
+        <div class="waveform">
+          @for (bar of bars; track $index) {
+            <div class="bar"></div>
+          }
+        </div>
+        <div class="mock-div"></div>
+      }
+
+      @if (audioUrl()) {
+        <div class="audio-preview">
+          <audio [src]="audioUrl()" controls></audio>
+          <button class="icon-button" type="button" (click)="deleteRecording()">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </div>
+      }
+
+      @if (!isRecording && !audioUrl) {
+        <input class="user-message" type="text" placeholder="Escribe aquí..." formControlName="userInput" required/>
+      }
+
       <button class="icon-button send-msg-button" type="submit">
         <span class="material-symbols-rounded">send</span>
       </button>

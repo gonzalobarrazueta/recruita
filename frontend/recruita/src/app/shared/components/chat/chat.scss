@@ -132,6 +132,60 @@
       font-family: 'Material Symbols Rounded';
     }
   }
+
+  .audio-preview {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-grow: 1;
+
+    audio {
+      width: 30%; /* shrink width */
+      height: 28px; /* reduce height */
+      outline: none; /* remove focus border */
+      border-radius: 6px;
+    }
+  }
+}
+
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+
+  height: 100%;
+  margin-left: 10px;
+}
+
+.mock-div {
+  flex-grow: 1;
+}
+
+.bar {
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff00cc, #3333ff);
+  border-radius: 3px;
+  transform-origin: bottom;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+/* Animate each bar at different delays for variation */
+@for $i from 1 through 5 {
+  .bar:nth-child(#{$i}) {
+    animation-delay: ($i - 1) * 0.2s;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
 .add-file {
