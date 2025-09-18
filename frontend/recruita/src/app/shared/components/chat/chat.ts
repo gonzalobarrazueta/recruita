@@ -1,4 +1,4 @@
-import {Component, ElementRef, input, ViewChild} from '@angular/core';
+import {Component, ElementRef, input, signal, ViewChild} from '@angular/core';
 import {Message, Sender} from '../../../models/message';
 import {Agent} from '../../services/agent';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -12,6 +12,7 @@ import {ConversationMessages} from '../../services/conversation-messages';
 import {filter, of, switchMap, take, tap} from 'rxjs';
 import {MarkdownPipe} from '../../../pipes/markdown-pipe';
 import {Users} from '../../services/users';
+import {Voice} from '../../services/voice';
 
 @Component({
   selector: 'app-chat',
@@ -36,6 +37,16 @@ export class Chat {
   selectedFile: File | null = null;
   cvContent: string = "";
   associatedRecruiter: any = null;
+  // For audio input
+  audioFile = signal<File | null>(null);
+  bars = new Array(5);
+
+  isRecording = signal(false);
+  audioUrl = signal<string | null>(null);
+
+  // Private variables for the MediaRecorder API
+  private mediaRecorder: MediaRecorder | null = null;
+  private audioChunks: Blob[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private agentService: Agent,
@@ -43,7 +54,8 @@ export class Chat {
               private authService: Auth,
               private CVService: CurriculumVitae,
               private conversationMessagesService: ConversationMessages,
-              private usersService: Users
+              private usersService: Users,
+              private voice: Voice
   ) {
     this.chatForm = this.formBuilder.group({
       userInput: ['', Validators.required]
@@ -102,7 +114,19 @@ export class Chat {
 
   sendMessage() {
 
-    let userInput: string = this.chatForm.get('userInput')?.value;
+    let userInput: string = "";
+
+    if (this.audioFile()) {
+      this.voice.voiceToText(this.audioFile() as File)
+        .subscribe(response => {
+          console.log("Transcription: ", response["transcription"])
+          userInput = response["transcription"];
+        });
+      return;
+    } else {
+      userInput = this.chatForm.get('userInput')?.value;
+    }
+
     let messageForAgent: string = "";
 
     let user_message: Message = {
@@ -196,6 +220,72 @@ export class Chat {
     enrichedMessage += this.associatedRecruiter.email ? `- Recruiter email: ${this.associatedRecruiter.email} ` : "";
 
     return enrichedMessage;
+  }
+
+  private async startRecording(): Promise<void> {
+    try {
+      // Clear previous recording data
+      this.audioChunks = [];
+      this.audioUrl.set(null);
+
+      // Request access to the user's microphone
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      // Create a new MediaRecorder instance
+      this.mediaRecorder = new MediaRecorder(stream);
+
+      // Listen for the 'dataavailable' event to collect audio chunks
+      this.mediaRecorder.addEventListener('dataavailable', event => {
+        this.audioChunks.push(event.data);
+      });
+
+      // Listen for the 'stop' event to process the final audio blob
+      this.mediaRecorder.addEventListener('stop', () => {
+        const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        this.audioUrl.set(audioUrl);
+
+        const audioFile = new File([audioBlob], 'audio-recording.webm', { type: 'audio/webm' });
+        this.audioFile.set(audioFile);
+
+        // Stop the media stream tracks
+        stream.getTracks().forEach(track => track.stop());
+      });
+
+      // Start the recording
+      this.mediaRecorder.start();
+      this.isRecording.set(true);
+      console.log('Recording started.');
+
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      this.isRecording.set(false);
+    }
+  }
+
+  async toggleRecording(): Promise<void> {
+    if (this.isRecording()) {
+      this.stopRecording();
+    } else {
+      await this.startRecording();
+    }
+  }
+
+  private stopRecording(): void {
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+      this.mediaRecorder.stop();
+      this.isRecording.set(false);
+      console.log('Recording stopped.');
+    }
+  }
+
+  deleteRecording() {
+    if (this.audioUrl) {
+      URL.revokeObjectURL(this.audioUrl() as string);
+    }
+
+    this.audioUrl.set(null);
+    this.audioChunks = [];
   }
 
   scrollToBottom() {
