@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from ..database import SessionLocal
 from ..models.users import Users
 from ..schemas.users import UserResponse
+from ..schemas.terms_and_conditions import TermsConditionsRequest
 
 router = APIRouter(
     prefix='/users',
@@ -41,3 +42,18 @@ def get_user_by_id(user_id: str, db: db_dependency):
 def check_user_terms_conditions(user_id: str, db: db_dependency):
     user = db.query(Users).filter(Users.id == user_id).first()
     return {'has_accepted': user.terms_conditions_accepted}
+
+@router.patch(
+    path='/terms-and-conditions/{user_id}',
+    status_code=status.HTTP_204_NO_CONTENT
+)
+def update_user_terms_conditions(
+        user_id: str,
+        request: TermsConditionsRequest,
+        db: db_dependency
+):
+    user = db.query(Users).filter(Users.id == user_id).first()
+    user.terms_conditions_accepted = request.accept
+
+    db.commit()
+    db.refresh(user)
