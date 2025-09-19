@@ -7,8 +7,8 @@ services:
     env_file:
       - ./agent/.env
     ports:
-      - "8002:8002"
-    command: python -m uvicorn agent.main:app --host 0.0.0.0 --port 8002
+      - "8002:8000" # host:container
+    command: python -m uvicorn agent.main:app --host 0.0.0.0 --port 8000
 
   auth:
     build:
@@ -29,5 +29,5 @@ services:
     env_file:
       - ./backend/documents_service/.env
     ports:
-      - "8001:8001"
-    command: python -m uvicorn documents_service.main:app --host 0.0.0.0 --port 8001
+      - "8001:8000"
+    command: python -m uvicorn documents_service.main:app --host 0.0.0.0 --port 8000
