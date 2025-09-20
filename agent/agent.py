@@ -10,6 +10,11 @@ from .tools.apply_to_job import apply_to_job
 from .tools.create_job_posting import create_job_posting
 from .tools.upload_embeddings_tool import upload_embeddings
 
+from dotenv import load_dotenv
+
+import os
+
+load_dotenv()
 
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
@@ -21,7 +26,7 @@ tools = [
 ]
 
 llm = ChatOpenAI(
-    model='gpt-4o-mini',
+    model=os.getenv('OPENAI_MODEL'),
     temperature=0
 ).bind_tools(tools)
 

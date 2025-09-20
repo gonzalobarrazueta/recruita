@@ -92,7 +92,7 @@ def apply_to_job(
             "Te sugerimos mejorar la experiencia o habilidades indicadas en la descripción del trabajo antes de volver a aplicar."
         )
 
-embeddings_model = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings_model = OpenAIEmbeddings(model=os.getenv('OPENAI_EMBEDDINGS_MODEL'))
 
 def compute_similarity(cv: str, job: str) -> float:
     cv_emb = embeddings_model.embed_query(cv)
