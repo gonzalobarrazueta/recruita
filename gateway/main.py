@@ -1,10 +1,19 @@
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 import httpx
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Base URLs for your internal container apps
 SERVICE1_AUTH_URL = "http://auth:8000"
