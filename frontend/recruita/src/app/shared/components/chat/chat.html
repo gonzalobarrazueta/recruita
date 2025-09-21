@@ -68,7 +68,7 @@
         </div>
       }
 
-      @if (!isRecording && !audioUrl) {
+      @if (!isRecording() && !audioUrl()) {
         <input class="user-message" type="text" placeholder="Escribe aquí..." formControlName="userInput" required/>
       }
 
