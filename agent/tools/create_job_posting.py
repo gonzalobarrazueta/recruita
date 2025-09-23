@@ -6,14 +6,16 @@ import os
 load_dotenv()
 
 @tool
-def create_job_posting(title: str, years_of_experience: int, category: str, company_name: str, requirements: str, full_description: str):
+def create_job_posting(recruiter_id: str, title: str, years_of_experience: int, category: str, company_name: str, requirements: str, full_description: str):
     """
     Creates a new job posting using the job-postings API. All fields are required.
+    The recruiter_id will explicitly be sent in the user's input. Assign that value to the recruiter_id parameter.
+    The company_name will explicitly be sent in the user's input. Assign that value to the company_name parameter.
     The category field must be one of: `data`, `cloud`, or `others`.
     Based on the job description, infer the most appropriate category and assign it to the category parameter.
     """
     data = {
-        "recruiter_id": "",
+        "recruiter_id": recruiter_id,
         "title": title,
         "years_of_experience": years_of_experience,
         "category": category,
