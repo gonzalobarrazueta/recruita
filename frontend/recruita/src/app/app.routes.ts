@@ -6,6 +6,7 @@ import { JobListings } from './features/recruiter/components/job-listings/job-li
 import { Chat } from './shared/components/chat/chat';
 import { Results } from './features/recruiter/components/results/results';
 import { CandidateProfile } from './features/recruiter/components/candidate-profile/candidate-profile';
+import {CreateJobPosting} from './features/recruiter/components/create-job-posting/create-job-posting';
 
 export const routes: Routes = [
   { path: '', component: SignUp },
@@ -17,4 +18,5 @@ export const routes: Routes = [
   { path: 'chat', component: Chat },
   { path: 'results/:id', component: Results },
   { path: 'results/applicant/:id', component: CandidateProfile },
+  { path: 'create-job-posting', component: CreateJobPosting }
 ];

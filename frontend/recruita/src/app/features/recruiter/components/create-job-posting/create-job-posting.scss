@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Instrument Sans', sans-serif;
+  color: #F7F7F7;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-container {
+  height: calc(100vh - 64px);
+  padding: 10px 0;
+}
+
+.chat-box {
+  padding: 16px;
+
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  border-radius: 5px;
+  background: rgba(88, 94, 91, 0.53);
+}
+
+.chat-header {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+
+  h1 {
+    color: #FFED3DFF;;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+.chat-messages {
+  height: 100%;
+  padding: 0;
+  margin: 5px 0;
+
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+  gap: 5px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b8ba47;
+    border-radius: 10px;
+  }
+}
+
+.message {
+  padding: 10px 20px;
+  border-radius: 15px;
+  background-color: #24302A;
+
+  max-width: 70%;
+}
+
+.message-type-user {
+  align-self: flex-end;
+}
+
+.message-type-ai {
+  align-self: flex-start;
+}
+
+.file-preview {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: right;
+  padding-bottom: 5px;
+}
+
+.chat-input {
+  background-color: #24302A;
+  border-radius: 10px;
+  padding: 10px 20px;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  gap: 5px;
+
+  .user-message {
+    width: 100%;
+    padding: 0 10px;
+    background: none;
+    border: none;
+
+    font-size: 16px;
+  }
+
+  .icon-button {
+    background: none;
+    border: none;
+
+    display: flex;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .material-symbols-rounded {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+      font-family: 'Material Symbols Rounded';
+    }
+  }
+}
+
+.add-file {
+  display: none;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 0 2px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.4s infinite both;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
