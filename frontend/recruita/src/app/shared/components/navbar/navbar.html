@@ -8,7 +8,7 @@
         <li><a routerLink="">Postulaciones</a></li>
       } @else if (this.authService.getRole() == 'recruiter') {
         <li><a routerLink="">Perfil</a></li>
-        <li><a routerLink="">Trabajos publicados</a></li>
+        <li><a routerLink="/manage-jobs">Trabajos publicados</a></li>
       }
       <li><a (click)="logout()">Cerrar sesión</a></li>
     </ul>
