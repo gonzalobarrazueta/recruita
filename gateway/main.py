@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 import httpx
-
+import os
 
 app = FastAPI()
 
@@ -16,9 +16,9 @@ app.add_middleware(
 )
 
 # Base URLs for your internal container apps
-SERVICE1_AUTH_URL = "http://auth:8000"
-SERVICE2_DOCUMENTS_URL = "http://documents:8000"
-SERVICE3_AGENT_URL = "http://agent:8000"
+SERVICE1_AUTH_URL = os.getenv("SERVICE1_AUTH_URL")
+SERVICE2_DOCUMENTS_URL = os.getenv("SERVICE2_DOCUMENTS_URL")
+SERVICE3_AGENT_URL = os.getenv("SERVICE3_AGENT_URL")
 
 
 logging.basicConfig(level=logging.INFO)
