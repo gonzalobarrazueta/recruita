@@ -1,4 +1,4 @@
-# netlify.toml (Place this file inside the frontend/recruita folder)
+# netlify.toml
 
 # ==========================================================
 # 1. BUILD CONFIGURATION
@@ -19,12 +19,14 @@
   status = 200
 
 # ==========================================================
-# 3. NETLIFY PLUGIN CONFIGURATION (The fix for your runtime env issue)
+# 3. NETLIFY PLUGIN CONFIGURATION
 # ==========================================================
 [[plugins]]
   package = "netlify-plugin-use-env-in-runtime"
 
   [plugins.inputs]
+    prefix = ""
+
     def = [
       "AUTH_API_URL",
       "DOCUMENTS_API_URL",
