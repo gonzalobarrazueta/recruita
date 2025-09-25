@@ -1,3 +1,4 @@
 [build]
+  base = "frontend/recruita"
   command = "./set-env.sh && ng build --prod"
-  publish = "dist/recruita"
+  publish = "dist/recruita/browser"
