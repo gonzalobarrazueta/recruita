@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
 import { User } from '../models/user';
+import {EnvVarsConfig} from '../../../shared/services/env-vars-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
 
-  private apiUrl = environment.AUTH_API_URL;
+  private apiUrl = "";
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private envVarsConfig: EnvVarsConfig) { }
+
+  ngOnInit() {
+    this.envVarsConfig.AUTH_API_URL;
+  }
 
   register(name: string, lastName: string, phoneNumber: string, email: string, password: string, role: string, organization: string): Observable<any> {
     const newUser = {
