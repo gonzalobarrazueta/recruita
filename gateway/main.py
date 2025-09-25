@@ -23,57 +23,43 @@ SERVICE3_AGENT_URL = os.getenv("SERVICE3_AGENT_URL")
 
 logging.basicConfig(level=logging.INFO)
 
-@app.api_route("/auth/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_service1(path: str, request: Request):
-    url = f"{SERVICE1_AUTH_URL}/{path}"
-    async with httpx.AsyncClient() as client:
-        response = await client.request(
-            request.method,
-            url,
-            params=dict(request.query_params),
-            content=await request.body(),
-            headers=dict(request.headers)
-        )
-    return Response(content=response.content, status_code=response.status_code, headers=dict(response.headers))
+@app.get("/")
+async def root():
+    return {"message": "Gateway is running"}
 
 
-@app.api_route("/documents/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_service2(path: str, request: Request):
-    url = f"{SERVICE2_DOCUMENTS_URL}/{path}"
-    async with httpx.AsyncClient() as client:
-        response = await client.request(
-            request.method,
-            url,
-            params=dict(request.query_params),
-            content=await request.body(),
-            headers=dict(request.headers)
-        )
-    return Response(content=response.content, status_code=response.status_code, headers=dict(response.headers))
+async def proxy_request(target_base: str, path: str, request: Request, timeout_seconds: float = 60.0):
+    url = f"{target_base.rstrip('/')}/{path.lstrip('/')}"
+    body = await request.body()
 
+    # Filter headers
+    excluded = {"host", "content-length", "connection"}
+    headers = {k: v for k, v in request.headers.items() if k.lower() not in excluded}
 
-@app.api_route("/agent/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def proxy_service3(path: str, request: Request):
-    timeout = httpx.Timeout(60.0)
+    logging.info(f"Forwarding {request.method} {url}")
+
+    timeout = httpx.Timeout(timeout_seconds)
+
     try:
-        url = f"{SERVICE3_AGENT_URL}/{path}"
         async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.request(
                 request.method,
                 url,
-                params=dict(request.query_params),
-                content=await request.body(),
-                headers=dict(request.headers)
+                params=request.query_params,
+                content=body,
+                headers=headers
             )
+
         return Response(
             content=response.content,
             status_code=response.status_code,
             headers=dict(response.headers)
         )
     except httpx.ReadTimeout:
-        logging.error(f"Request to {url} timed out after {timeout.read} seconds.")
+        logging.error(f"Request to {url} timed out after {timeout_seconds} seconds.")
         return JSONResponse(
             status_code=504,
-            content={"error": f"Agent service did not respond in time (>{timeout.read}s)."}
+            content={"error": f"Service did not respond in time (>{timeout_seconds}s)."}
         )
     except Exception as e:
         logging.exception(f"Error while forwarding request to {url}")
@@ -82,3 +68,17 @@ async def proxy_service3(path: str, request: Request):
             content={"error": str(e)}
         )
 
+
+@app.api_route("/auth/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+async def proxy_service1(path: str, request: Request):
+    return await proxy_request(SERVICE1_AUTH_URL, path, request)
+
+
+@app.api_route("/documents/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+async def proxy_service2(path: str, request: Request):
+    return await proxy_request(SERVICE2_DOCUMENTS_URL, path, request)
+
+
+@app.api_route("/agent/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+async def proxy_service3(path: str, request: Request):
+    return await proxy_request(SERVICE3_AGENT_URL, path, request)
