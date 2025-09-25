@@ -34,6 +34,9 @@ jobs:
           ###### End of Repository/Build Configurations ######
         env:
           NODE_VERSION: 22
+          AGENT_API_URL: "https://gateway.kindbeach-6d8e9967.centralus.azurecontainerapps.io/agent"
+          AUTH_API_URL: "https://gateway.kindbeach-6d8e9967.centralus.azurecontainerapps.io/auth"
+          DOCUMENTS_API_URL: "https://gateway.kindbeach-6d8e9967.centralus.azurecontainerapps.io/documents"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
