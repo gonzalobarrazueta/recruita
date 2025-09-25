@@ -1,0 +1,3 @@
+[build]
+  command = "./set-env.sh && ng build --prod"
+  publish = "dist/recruita"
