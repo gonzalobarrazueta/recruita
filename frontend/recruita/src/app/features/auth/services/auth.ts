@@ -19,7 +19,7 @@ export class Auth {
   constructor(private http: HttpClient, private router: Router, private envVarsConfig: EnvVarsConfig) { }
 
   ngOnInit() {
-    this.envVarsConfig.AUTH_API_URL;
+    this.apiUrl = this.envVarsConfig.AUTH_API_URL;
   }
 
   register(name: string, lastName: string, phoneNumber: string, email: string, password: string, role: string, organization: string): Observable<any> {
