@@ -1,0 +1,32 @@
+# netlify.toml (Place this file inside the frontend/recruita folder)
+
+# ==========================================================
+# 1. BUILD CONFIGURATION
+# ==========================================================
+[build]
+  # Runs 'npm run build' inside the Base directory (frontend/recruita)
+  command = "npm run build"
+
+  # The publish path, relative to the Base directory (frontend/recruita)
+  publish = "dist/recruita/browser"
+
+# ==========================================================
+# 2. STANDARD SPA REDIRECT
+# ==========================================================
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ==========================================================
+# 3. NETLIFY PLUGIN CONFIGURATION (The fix for your runtime env issue)
+# ==========================================================
+[[plugins]]
+  package = "netlify-plugin-use-env-in-runtime"
+
+  [plugins.inputs]
+    vars = [
+      "AUTH_API_URL",
+      "DOCUMENTS_API_URL",
+      "AGENT_API_URL"
+    ]
