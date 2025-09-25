@@ -2,11 +2,13 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY ./backend/auth_service/requirements.txt /app/
+RUN mkdir -p /app/auth_service
 
-RUN pip install -r /app/requirements.txt
+COPY requirements.txt /app/auth_service
 
-COPY ./backend/auth_service /app/auth_service
+RUN pip install -r /app/auth_service/requirements.txt
+
+COPY . /app/auth_service
 
 ENV PYTHONPATH=/app
 

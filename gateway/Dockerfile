@@ -2,10 +2,12 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY ./gateway/requirements.txt /app/
+RUN mkdir -p /app/gateway
 
-RUN pip install -r /app/requirements.txt
+COPY requirements.txt /app/gateway
 
-COPY ./gateway /app/gateway
+RUN pip install -r /app/gateway/requirements.txt
 
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY . /app/gateway
+
+CMD ["python", "-m", "uvicorn", "gateway.main:app", "--host", "0.0.0.0", "--port", "8000"]
