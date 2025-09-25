@@ -21,7 +21,9 @@
 # ==========================================================
 # 3. NETLIFY PLUGIN CONFIGURATION (The fix for your runtime env issue)
 # ==========================================================
-[[plugins]] package = "netlify-plugin-use-env-in-runtime"
+[[plugins]]
+  package = "netlify-plugin-use-env-in-runtime"
+
   [plugins.inputs]
     def = [
       "AUTH_API_URL",
