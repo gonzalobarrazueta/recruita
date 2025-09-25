@@ -1,1 +1,25 @@
-<p>candidate-profile works!</p>
+<div class="page">
+  <main class="candidate">
+    <div class="candidate-col-1">
+      <div class="candidate-name">
+        <h1>{{ candidate.name }}</h1>
+      </div>
+      <div class="pfp-container">
+        <img src="{{ candidate.pfp }}" alt="">
+      </div>
+    </div>
+
+    <div class="candidate-col-2">
+      <div class="candidate-name">
+        <h1>{{ candidate.name }}</h1>
+      </div>
+      <div class="candidate-contact">
+        <h2>Contacto</h2>
+        <ul>
+          <li>Email: <a href="mailto: {{ candidate.email }}">{{ candidate.email }}</a></li>
+          <li>Teléfono: +51 {{ candidate.phoneNumber }}</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</div>
