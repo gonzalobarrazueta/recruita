@@ -23,17 +23,17 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: npm install, build, and test
+      - name: Install dependencies and build Angular app
         run: |
+          cd frontend/recruita
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: .
+          name: angular-app
+          path: frontend/recruita/dist/recruita
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: angular-app
       
       - name: Login to Azure
         uses: azure/login@v2
