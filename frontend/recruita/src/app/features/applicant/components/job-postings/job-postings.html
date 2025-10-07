@@ -9,12 +9,8 @@
 
 @if (useApp) {
   <div class="job-postings-wrapper">
-    <h2 class="job-postings-title">Explora trabajos en el mundo de datos</h2>
     <div class="job-postings-list">
-      <button class="scroll-btn left" style="color:#fff" (click)="scrollLeft()">&larr;</button>
-
-      <div class="job-postings" #scrollableList>
-
+      <div class="job-postings">
         @for (posting of jobPostings; track posting.title) {
           @if (posting.category == 'data') {
             <article class="job" [routerLink]="['/jobs', posting.id]">
@@ -30,18 +26,13 @@
             </article>
           }
         }
-
       </div>
-      <button class="scroll-btn right" style="color:#fff" (click)="scrollRight()">&rarr;</button>
     </div>
   </div>
   <div class="job-postings-wrapper">
     <h2 class="job-postings-title">Explora trabajos en el mundo de la nube</h2>
     <div class="job-postings-list">
-      <button class="scroll-btn left" style="color:#fff" (click)="scrollLeft()">&larr;</button>
-
-      <div class="job-postings" #scrollableList>
-
+      <div class="job-postings">
         @for (posting of jobPostings; track posting.title) {
           @if (posting.category == 'cloud') {
             <article class="job" [routerLink]="['/jobs', posting.id]">
@@ -57,18 +48,13 @@
             </article>
           }
         }
-
       </div>
-      <button class="scroll-btn right" style="color:#fff" (click)="scrollRight()">&rarr;</button>
     </div>
   </div>
   <div class="job-postings-wrapper">
     <h2 class="job-postings-title">Explora más trabajos en tecnología</h2>
     <div class="job-postings-list">
-      <button class="scroll-btn left" style="color:#fff" (click)="scrollLeft()">&larr;</button>
-
-      <div class="job-postings" #scrollableList>
-
+      <div class="job-postings">
         @for (posting of jobPostings; track posting.title) {
           @if (posting.category == 'others') {
             <article class="job" [routerLink]="['/jobs', posting.id]">
@@ -84,9 +70,7 @@
             </article>
           }
         }
-
       </div>
-      <button class="scroll-btn right" style="color:#fff" (click)="scrollRight()">&rarr;</button>
     </div>
   </div>
 } @else {

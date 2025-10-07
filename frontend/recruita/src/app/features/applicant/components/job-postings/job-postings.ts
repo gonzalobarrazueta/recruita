@@ -43,16 +43,6 @@ export class JobPostings {
     });
   }
 
-  @ViewChild('scrollableList', { static: false }) scrollContainer!: ElementRef;
-
-  scrollRight(){
-    this.scrollContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
-  }
-
-  scrollLeft(){
-    this.scrollContainer.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
-  }
-
   onTermsAccepted(value: boolean) {
     this.useApp = value;
   }
