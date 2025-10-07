@@ -20,7 +20,8 @@ export class SignUp {
   userRoles = [
     { value: 'applicant', text: 'Postulante' },
     { value: 'recruiter', text: 'Reclutador' }
-  ]
+  ];
+  loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private authService: Auth, private router: Router) {
     this.signUpForm = this.formBuilder.group({
@@ -35,8 +36,10 @@ export class SignUp {
   }
 
   register(name: string, lastName: string, phoneNumber: string, email: string, password: string, role: string, organization: string) {
+    this.loading = true;
     this.authService.register(name, lastName, phoneNumber, email, password, role, organization).subscribe({
       next: (data) => {
+        this.loading = false;
         const accessToken = data.access_token;
         localStorage.setItem('access_token', accessToken);
 
