@@ -19,6 +19,7 @@ export class Login {
   loginForm!: FormGroup;
   showPassword: boolean = false;
   showErrorMessage: boolean = false;
+  loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private authService: Auth, private router: Router) {
     this.loginForm = this.formBuilder.group({
@@ -28,9 +29,12 @@ export class Login {
   }
 
   login(email: string, password: string) {
-    this.showPassword = false;
+    this.showErrorMessage = false;
+    this.loading = true;
+
     this.authService.login(email, password).subscribe({
       next: (data) => {
+        this.loading = false;
         const accessToken = data.access_token;
         localStorage.setItem('access_token', accessToken);
 
@@ -55,6 +59,7 @@ export class Login {
         });
       },
       error: (err) => {
+        this.loading = false;
         if (err.status === 401) {
           this.showErrorMessage = true;
         }
