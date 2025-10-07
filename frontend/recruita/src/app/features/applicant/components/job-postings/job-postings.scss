@@ -33,41 +33,34 @@ header {
 .job-postings-title {
   color: #DADADA;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 26px;
   padding-left: 24px;
 }
 
 .job-postings-list {
-  // for horizontal scrolling functionality
   display: flex;
-  align-items: center;
   position: relative;
 }
 
 .job-postings {
-  display: flex;
-  flex-flow: row nowrap;
+  width: 100%;
+  padding: 0 24px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 410px);
+  grid-template-rows: auto;
+  justify-content: space-between;
   gap: 16px;
-
-  // for horizontal scrolling functionality
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  width:100%;
-}
-
-.job-postings::-webkit-scrollbar {
-  display: none;
 }
 
 .job {
   background: rgba(181, 255, 219, 0.37);
   border-radius: 10px;
+  padding-right: 16px;
 
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
 
@@ -110,14 +103,6 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-}
-
-.scroll-btn {
-  background: transparent;
-  border: none;
-  font-size:  16px;
-  cursor: pointer;
-  z-index: 1;
 }
 
 .job-postings-wrapper:last-of-type {
