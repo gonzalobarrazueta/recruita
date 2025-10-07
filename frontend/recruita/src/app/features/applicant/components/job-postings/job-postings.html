@@ -9,6 +9,7 @@
 
 @if (useApp) {
   <div class="job-postings-wrapper">
+    <h2 class="job-postings-title">Explora trabajos en el mundo de datos</h2>
     <div class="job-postings-list">
       <button class="scroll-btn left" style="color:#fff" (click)="scrollLeft()">&larr;</button>
 
@@ -22,7 +23,7 @@
               </div>
               <div class="job-details">
                 <h3 class="job-title">{{ posting.title }}</h3>
-                <p class="company-name">{{ posting.companyName }}</p>
+                <p class="company-name">Empresa: {{ posting.companyName }}</p>
                 <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
                 <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
               </div>
@@ -49,7 +50,7 @@
               </div>
               <div class="job-details">
                 <h3 class="job-title">{{ posting.title }}</h3>
-                <p class="company-name">{{ posting.companyName }}</p>
+                <p class="company-name">Empresa: {{ posting.companyName }}</p>
                 <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
                 <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
               </div>
@@ -76,7 +77,7 @@
               </div>
               <div class="job-details">
                 <h3 class="job-title">{{ posting.title }}</h3>
-                <p class="company-name">{{ posting.companyName }}</p>
+                <p class="company-name">Empresa: {{ posting.companyName }}</p>
                 <p class="experience">Experiencia: {{ posting.yearsOfExperience }}</p>
                 <p class="requisites truncate">Requisitos: {{ posting.requirements }}</p>
               </div>
