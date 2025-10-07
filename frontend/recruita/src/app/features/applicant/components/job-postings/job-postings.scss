@@ -3,6 +3,30 @@
   font-family: 'Instrument Sans', serif;
   color: #fff;
 }
+
+header {
+  position: relative;
+
+  .header-image-container {
+    img {
+      width: 100%;
+    }
+  }
+
+  .header-title {
+    width: 100%;
+    padding-left: 24px;
+    position: absolute;
+    bottom: 0;
+
+    h1 {
+      color: #E3E56C;
+      font-size: 36px;
+    }
+  }
+}
+
+
 .job-postings-wrapper {
   margin-top: 32px;
 }
