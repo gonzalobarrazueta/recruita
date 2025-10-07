@@ -32,6 +32,12 @@
             {{ showPassword ? "visibility" : "visibility_off" }}
           </span>
         </div>
+
+        @if (showErrorMessage) {
+          <div class="error-message">
+            <p>No se pudo validar el usuario: correo o contraseña incorrectos.</p>
+          </div>
+        }
       </div>
 
       <app-cta-button

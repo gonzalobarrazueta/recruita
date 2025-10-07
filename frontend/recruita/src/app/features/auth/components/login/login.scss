@@ -100,6 +100,17 @@
     }
   }
 
+  .error-message {
+    background-color: #f34242;
+    margin: 4px 0;
+    padding: 6px 16px;
+    border-radius: 4px;
+
+    p {
+      margin: 0;
+    }
+  }
+
   .go-to-signup {
     font-weight: 600;
 
