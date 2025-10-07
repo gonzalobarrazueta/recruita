@@ -293,4 +293,8 @@ export class Chat {
       this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
     });
   }
+
+  jobRequirementsToArray(requirements: string) {
+    return requirements.split(',');
+  }
 }
