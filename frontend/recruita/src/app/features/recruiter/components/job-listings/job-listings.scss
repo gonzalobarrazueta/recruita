@@ -50,34 +50,20 @@
 }
 
 .job {
-  position: relative;
-
-  background-color: rgba(86, 91, 89, 0.5);
-
-  border: 2px solid #BDECD3;
+  background: rgba(181, 255, 219, 0.37);
   border-radius: 10px;
-  padding: 16px;
+  padding-right: 16px;
 
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px 12px;
-
   flex: 0 0 auto;
+  gap: 16px;
 
   &:hover {
     cursor: pointer;
   }
-}
-
-.truncate {
-  width: 280px;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .notification-badge {
@@ -95,11 +81,11 @@
 }
 
 .company-img {
-  width: 100%;
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 115px;
+  max-height: 115px;
   border-radius: 5px;
   overflow: hidden;
+  box-shadow: 4px 0 4px 0 rgba(0, 0, 0, 0.25);
 
   img {
     width: 100%;
@@ -116,5 +102,14 @@
 
   & > * {
     margin:0;
+  }
+
+  .truncate {
+    width: 280px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
