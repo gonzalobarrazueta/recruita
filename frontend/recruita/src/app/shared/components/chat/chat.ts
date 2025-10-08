@@ -9,7 +9,7 @@ import {Auth} from '../../../features/auth/services/auth';
 import {Conversation} from '../../../models/conversation';
 import {User} from '../../../features/auth/models/user';
 import {ConversationMessages} from '../../services/conversation-messages';
-import {filter, of, switchMap, take, tap} from 'rxjs';
+import {filter, firstValueFrom, of, switchMap, take, tap} from 'rxjs';
 import {MarkdownPipe} from '../../../pipes/markdown-pipe';
 import {Users} from '../../services/users';
 import {Voice} from '../../services/voice';
@@ -122,17 +122,13 @@ export class Chat {
     });
   }
 
-  sendMessage() {
+  async sendMessage() {
 
     let userInput: string = "";
 
     if (this.audioFile()) {
-      this.voice.voiceToText(this.audioFile() as File)
-        .subscribe(response => {
-          console.log("Transcription: ", response["transcription"])
-          userInput = response["transcription"];
-        });
-      return;
+      const response = await firstValueFrom(this.voice.voiceToText(this.audioFile() as File));
+      userInput = response["transcription"];
     } else {
       userInput = this.chatForm.get('userInput')?.value;
     }
