@@ -16,7 +16,7 @@ router = APIRouter(
 db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.post(
-    path='/',
+    path='',
     status_code=status.HTTP_201_CREATED
 )
 async def create_message(request: Request, db: db_dependency):

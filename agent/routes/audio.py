@@ -15,7 +15,7 @@ router = APIRouter(
 openai_client = OpenAI()
 
 @router.post(
-    path='/',
+    path='',
     status_code=status.HTTP_200_OK
 )
 async def voice_to_agent(
