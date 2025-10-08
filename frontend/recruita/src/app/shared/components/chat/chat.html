@@ -1,80 +1,83 @@
 <div class="chat-container">
   <div class="chat-box">
-    <div class="chat-header">
+    <div class="chat-header" style="{{ chatGradient }}">
       <div class="company-img-container">
         <img class="company-img" [src]="jobPosting.companyImage" alt="{{ jobPosting.companyName }} logo">
       </div>
-      <h2><span>{{ jobPosting.title }}</span> en <span>{{ jobPosting.companyName }}</span></h2>
+      <h2>{{ jobPosting.title }} <span>en</span> {{ jobPosting.companyName }}</h2>
     </div>
-
-    <div class="chat-messages" #scrollContainer>
-      @for (message of messages; track message) {
-        @if (message.sender == "user") {
-          <div class="message message-type-user">
-            <span class="message-text">{{ message.content }}</span>
-          </div>
-        } @else { <!-- AI response -->
-          <div class="message message-type-ai" [innerHtml]="message.content | markdown"></div>
+    <div class="chat-content">
+      <div class="chat-messages" #scrollContainer>
+        @for (message of messages; track message) {
+          @if (message.sender == "user") {
+            <div class="message message-type-user">
+              <span class="message-text">{{ message.content }}</span>
+            </div>
+          } @else {
+            <!-- AI response -->
+            <div class="message message-type-ai" [innerHtml]="message.content | markdown"></div>
+          }
         }
-      }
 
-      @if (waitingForAgentResponse) {
-        <div class="message message-type-ai">
+        @if (waitingForAgentResponse) {
+          <div class="message message-type-ai">
         <span class="message-text">
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
         </span>
-        </div>
-      }
-    </div>
-
-    @if (selectedFile) {
-      <div class="file-preview">
-        <div class="file-selected">
-          <span class="file-name">{{ selectedFile.name }}</span>
-        </div>
-      </div>
-    }
-    <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-      <button class="icon-button" type="button" (click)="toggleRecording()">
-        @if (isRecording()) {
-          <span class="material-symbols-rounded">stop_circle</span>
-        } @else {
-          <span class="material-symbols-rounded">graphic_eq</span>
+          </div>
         }
-      </button>
+      </div>
 
-      <input class="add-file" type="file" #fileUpload (change)="onFileSelected($event)" accept=".doc, .docx, .pdf, .txt">
-      <button class="icon-button" type="button" (click)="fileUpload.click()">
-        <span class="material-symbols-rounded">attach_file_add</span>
-      </button>
-
-      @if (isRecording()) {
-        <div class="waveform">
-          @for (bar of bars; track $index) {
-            <div class="bar"></div>
+      @if (selectedFile) {
+        <div class="file-preview">
+          <div class="file-selected">
+            <span class="file-name">{{ selectedFile.name }}</span>
+          </div>
+        </div>
+      }
+      <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+        <button class="icon-button" type="button" (click)="toggleRecording()">
+          @if (isRecording()) {
+            <span class="material-symbols-rounded">stop_circle</span>
+          } @else {
+            <span class="material-symbols-rounded">graphic_eq</span>
           }
-        </div>
-        <div class="mock-div"></div>
-      }
+        </button>
 
-      @if (audioUrl()) {
-        <div class="audio-preview">
-          <audio [src]="audioUrl()" controls></audio>
-          <button class="icon-button" type="button" (click)="deleteRecording()">
-            <span class="material-symbols-rounded">close</span>
-          </button>
-        </div>
-      }
+        <input class="add-file" type="file" #fileUpload (change)="onFileSelected($event)"
+               accept=".doc, .docx, .pdf, .txt">
+        <button class="icon-button" type="button" (click)="fileUpload.click()">
+          <span class="material-symbols-rounded">attach_file_add</span>
+        </button>
 
-      @if (!isRecording() && !audioUrl()) {
-        <input class="user-message" type="text" placeholder="Escribe aquí..." formControlName="userInput" required/>
-      }
+        @if (isRecording()) {
+          <div class="waveform">
+            @for (bar of bars; track $index) {
+              <div class="bar"></div>
+            }
+          </div>
+          <div class="mock-div"></div>
+        }
 
-      <button class="icon-button send-msg-button" type="submit">
-        <span class="material-symbols-rounded">send</span>
-      </button>
-    </form>
+        @if (audioUrl()) {
+          <div class="audio-preview">
+            <audio [src]="audioUrl()" controls></audio>
+            <button class="icon-button" type="button" (click)="deleteRecording()">
+              <span class="material-symbols-rounded">close</span>
+            </button>
+          </div>
+        }
+
+        @if (!isRecording() && !audioUrl()) {
+          <input class="user-message" type="text" placeholder="Escribe aquí..." formControlName="userInput" required/>
+        }
+
+        <button class="icon-button send-msg-button" type="submit">
+          <span class="material-symbols-rounded">send</span>
+        </button>
+      </form>
+    </div>
   </div>
 </div>
