@@ -13,6 +13,7 @@ import {filter, of, switchMap, take, tap} from 'rxjs';
 import {MarkdownPipe} from '../../../pipes/markdown-pipe';
 import {Users} from '../../services/users';
 import {Voice} from '../../services/voice';
+import {average} from 'color.js';
 
 @Component({
   selector: 'app-chat',
@@ -40,6 +41,7 @@ export class Chat {
   // For audio input
   audioFile = signal<File | null>(null);
   bars = new Array(5);
+  chatGradient: string = "";
 
   isRecording = signal(false);
   audioUrl = signal<string | null>(null);
@@ -80,6 +82,14 @@ export class Chat {
               return this.jobsService.getJobById(this.id() as string).pipe(
                 switchMap(data => {
                   this.jobPosting = data[0];
+
+                  this.getImageColors()
+                    .then(averageColor => {
+                      this.chatGradient = `background:  linear-gradient(180deg, ${averageColor} 0%, #131313 60%);`;
+                      console.log("gradient", this.chatGradient);
+                    })
+                    .catch(console.error);
+
                   // fetch recruiter data using the recruiter_id from the job posting
                   return this.usersService.getUserById(this.jobPosting.recruiterId).pipe(
                     tap(data => {
@@ -296,5 +306,9 @@ export class Chat {
 
   jobRequirementsToArray(requirements: string) {
     return requirements.split(',');
+  }
+
+  async getImageColors() {
+    return await average(this.jobPosting.companyImage, { format: "hex" })
   }
 }
