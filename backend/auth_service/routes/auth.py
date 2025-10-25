@@ -40,6 +40,13 @@ db_dependency = Annotated[Session, Depends(get_db)]
 @router.post('/register', status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
 
+    existing_user = db.query(Users).filter(Users.email == create_user_request.email).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A user with this email already exists."
+        )
+
     new_user = Users(
         name=create_user_request.name,
         last_name=create_user_request.last_name,
