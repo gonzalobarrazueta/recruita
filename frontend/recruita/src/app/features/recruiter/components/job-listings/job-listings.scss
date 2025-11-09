@@ -4,31 +4,29 @@
   color: #fff;
 }
 
+header {
+  position: relative;
+  background: linear-gradient(180deg, #FFD23C 0%, rgba(22, 22, 22, 0.5) 100%);
+  height: 180px;
+  margin-bottom: 20px;
+}
+
 .page-title {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
 
-  padding: 0 18px 0 18px;
+  padding: 0 18px;
+  margin: 0;
+  font-size: 36px;
+  color: #E3E56C;
+}
 
-  h1 {
-    color: #E3E56C;
-    font-weight: 700;
-
-  }
-
-  .add-job-posting-button {
-    border: 2px solid #83ffc1;
-    border-radius: 10px;
-    background-color: transparent;
-    padding: 10px 15px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(131, 255, 193, 0.2);
-    }
-  }
+.add-job-posting-link {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  padding: 0 18px;
 }
 
 .material-symbols-rounded {
@@ -41,6 +39,9 @@
   font-family: 'Material Symbols Rounded';
 }
 
+.job-postings-wrapper {
+  padding-bottom: 20px;
+}
 .job-postings {
   display: flex;
   flex-flow: row wrap;
