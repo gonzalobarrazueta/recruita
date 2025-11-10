@@ -1,3 +1,6 @@
+<header class="page-title">
+  <h2 class="job-postings-title">🎯 Candidatos seleccionados</h2>
+</header>
 @if (noCandidates) {
   <div class="no-candidates">
     <h1>Aún no hemos encontrado ningún candidato idóneo para este puesto.</h1>
@@ -5,7 +8,6 @@
 } @else {
   @if (topCandidates.length > 0) {
     <div class="job-postings-wrapper">
-      <h2 class="job-postings-title">Candidatos más aptos</h2>
       <div class="job-postings-list">
         <div class="top-candidates">
           @for (candidate of topCandidates; track candidate.name) {
@@ -15,8 +17,7 @@
               </div>
               <div class="job-details">
                 <h3 class="job-title">{{ candidate.name }}</h3>
-                <p class="experience">Experiencia: {{ candidate.experience }} años(s)</p>
-                <p class="requisites truncate">Requisitos: {{ candidate.skills }}</p>
+                <p class="experience">{{ candidate.jobTitle }}</p>
               </div>
             </article>
           }

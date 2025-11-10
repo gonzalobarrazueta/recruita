@@ -12,6 +12,7 @@
 
   h1 {
     color: #FFED3DFF;
+    margin-top: 72px;
   }
 }
 
@@ -19,11 +20,22 @@
   margin-top: 32px;
 }
 
+.page-title {
+  position: relative;
+  background: linear-gradient(180deg, #FFD23C 0%, rgba(22, 22, 22, 0.5) 100%);
+  height: 180px;
+  margin-bottom: 20px;
+}
+
 .job-postings-title {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+
+  padding: 0 18px;
+  margin: 0;
+  font-size: 36px;
   color: #E3E56C;
-  font-weight: 600;
-  font-size: 32px;
-  margin: 0 0 10px 18px;
 }
 
 .others {
@@ -38,12 +50,10 @@
 }
 
 .top-candidates {
-  //border: 3px solid #83ffc1;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 18px;
+  display: flex;
+  gap: 15px;
 }
 
 .job-postings {
@@ -68,14 +78,11 @@
 
   //border: 2px solid #BDECD3;
   border-radius: 10px;
-  padding: 8px;
-
+  width: 350px;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
   align-items: center;
   gap: 16px 12px;
-
   flex: 0 0 auto;
 
   :hover {
@@ -83,18 +90,9 @@
   }
 }
 
-.top-candidate-card {
-  padding: 8px 10px;
-
-  .company-img {
-    width: 110px;
-    height: 110px;
-  }
-}
-
 .company-img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   border-radius: 5px;
   overflow: hidden;
 
@@ -108,12 +106,15 @@
 .job-details {
   display: flex;
   flex-flow: column nowrap;
-  width: 100%;
   max-width: 280px;
   overflow: hidden;
 
   & > * {
     margin:0;
+  }
+
+  h3 {
+    font-size: 20px;
   }
 }
 
