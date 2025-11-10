@@ -6,4 +6,5 @@ export interface Applicant {
   phoneNumber: string;
   experience: number;
   skills: string;
+  jobTitle?: string;
 }
